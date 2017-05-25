@@ -11,7 +11,7 @@
 
     <backend>
         <container>
-            <option name="factoryClass">FOF30\Factory\MagicFactory</option>
+            <option name="factoryClass">FOF30\Factory\MagicSwitchFactory</option>
         </container>
         <!-- Dispatcher configuration -->
         <dispatcher>

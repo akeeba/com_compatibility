@@ -11,10 +11,12 @@
     <orderEntry type="module-library">
       <library name="PHP" type="php">
         <CLASSES>
+          <root url="file://$MODULE_DIR$/../ars/component" />
           <root url="file://$MODULE_DIR$/../fof3/fof" />
           <root url="file://$MODULE_DIR$/../../master/joomla-cms" />
         </CLASSES>
         <SOURCES>
+          <root url="file://$MODULE_DIR$/../ars/component" />
           <root url="file://$MODULE_DIR$/../fof3/fof" />
           <root url="file://$MODULE_DIR$/../../master/joomla-cms" />
         </SOURCES>
