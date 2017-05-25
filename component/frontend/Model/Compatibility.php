@@ -149,6 +149,7 @@ class Compatibility extends Model
 		return [
 			'type'   => $cmsType,
 			'latest' => $versionNumbers[array_shift($versionIDs)],
+			'php'    => array_keys($phpVersions),
 			'matrix' => $matrix,
 		];
 	}
