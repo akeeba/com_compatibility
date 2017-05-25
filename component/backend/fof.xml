@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fof>
+    <common>
+        <container>
+            <option name="componentNamespace">Akeeba\Compatibility</option>
+            <option name="factoryClass">FOF30\Factory\BasicFactory</option>
+            <option name="scaffolding">0</option>
+            <option name="saveScaffolding">0</option>
+        </container>
+    </common>
+
+    <backend>
+        <container>
+            <option name="factoryClass">FOF30\Factory\MagicFactory</option>
+        </container>
+        <!-- Dispatcher configuration -->
+        <dispatcher>
+            <option name="defaultView">ControlPanel</option>
+        </dispatcher>
+    </backend>
+
+    <frontend>
+        <!-- Dispatcher configuration -->
+        <dispatcher>
+            <option name="defaultView">Compatibility</option>
+        </dispatcher>
+    </frontend>
+</fof>

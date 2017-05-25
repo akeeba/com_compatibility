@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.6.0" type="component" method="upgrade">
+	<name>Compatibility</name>
+	<creationDate>##DATE##</creationDate>
+	<author>Nicholas K. Dionysopoulos</author>
+	<authorEmail>nicholas@dionysopoulos.me</authorEmail>
+	<authorUrl>https://www.akeebabackup.com</authorUrl>
+	<copyright>Copyright (c)2017-2017 Akeeba Ltd / Nicholas K. Dionysopoulos</copyright>
+	<license>GNU GPL v3 or later</license>
+	<version>##VERSION##</version>
+	<description>Compatibility page for AkeebaBackup.com</description>
+
+	<!-- Public front end files -->
+	<files folder="frontend">
+		<folder>Controller</folder>
+		<folder>Model</folder>
+		<folder>View</folder>
+		<filename>compatibility.php</filename>
+	</files>
+
+	<!-- Front end translation files -->
+	<languages folder="language/frontend">
+		<language tag="en-GB">en-GB/en-GB.com_compatibility.ini</language>
+	</languages>
+
+	<!-- Media files -->
+	<!--
+	<media destination="com_compatibility" folder="media">
+		<folder>TODO</folder>
+		<filename>TODO</filename>
+	</media>
+	-->
+
+	<!-- Administrator back-end section -->
+	<administration>
+		<!-- Administration menu -->
+		<menu view="ControlPanel">COM_COMPATIBILITY</menu>
+
+		<!-- Back-end files -->
+		<files folder="backend">
+			<folder>Controller</folder>
+			<folder>Model</folder>
+			<folder>View</folder>
+
+			<filename>compatibility.php</filename>
+			<filename>fof.xml</filename>
+			<filename>config.xml</filename>
+			<filename>access.xml</filename>
+		</files>
+
+		<!-- Back-end translation files -->
+		<languages folder="language/backend">
+			<language tag="en-GB">en-GB/en-GB.com_compatibility.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_compatibility.sys.ini</language>
+		</languages>
+
+	</administration>
+
+	<!-- Installation / uninstallation script file -->
+	<scriptfile>script.com_compatibility.php</scriptfile>
+</extension>

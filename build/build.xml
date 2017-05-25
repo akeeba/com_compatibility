@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<project name="CompatibilityJoomla" description="Compatibility Information for AkeebaBackup.com" default="git" >
+
+    <import file="${phing.dir}/../../buildfiles/phing/common.xml" />
+
+	<!--
+	====================================================================================================
+	File sets
+	====================================================================================================
+	-->
+
+	<fileset dir="${dirs.component}" id="component" expandsymboliclinks="true">
+		<include name="backend/**" />
+		<include name="frontend/**" />
+		<include name="language/**" />
+		<include name="media/**" />
+		<include name="*" />
+
+		<exclude name="script.compatibility.php" />
+	</fileset>
+
+	<!--
+	====================================================================================================
+	Tasks - General
+	====================================================================================================
+	-->
+
+	<target name="all" description="Makes everything"
+		depends="git,documentation">
+	</target>
+
+	<target name="git" description="Makes only packages, not the documentation"
+		depends="new-release,setup-properties,package-com">
+	</target>
+
+	<!--
+	====================================================================================================
+	Tasks - Documentation
+	====================================================================================================
+	-->
+
+	<target name="documentation" description="Ignored">
+	</target>
+
+
+	<!--
+	====================================================================================================
+	Tasks - Project management
+	====================================================================================================
+	-->
+
+	<target name="docsdeploy">
+		<echo>Ignored</echo>
+	</target>
+</project>
