@@ -36,7 +36,11 @@ $title = $software['logo'] . ' ' . $software['title'];
                 <tbody>
                 @foreach ($software['matrix'] as $version => $releases)
                     <tr>
-                        <td>{{ $type  }} {{ $version }}</td>
+                        <td>
+                            <span class="label label-{{ ($version == $latestCms) ? 'success' : 'default' }}">
+                            {{ $type  }} {{ $version }}
+                            </span>
+                        </td>
                         @foreach ($releases as $phpVersion => $release)
                             <td>
                                 @unless(empty($release))

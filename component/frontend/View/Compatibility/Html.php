@@ -36,6 +36,13 @@ class Html extends FOFHtml
 
 			// TODO Get the logo, render it as an img tag at 32px square
 			$matrix['logo'] = '';
+			$logo = $this->getLogo($id);
+
+			if ($logo)
+			{
+				$matrix['logo'] = \JHtml::image('images/' . $logo, '', ['width' => 32, 'height' => '32']);
+			}
+
 			$matrix['title'] = $category->title;
 			$matrix['link'] = \JRoute::_('index.php?option=com_ars&view=Releases&category_id=' . $id);
 			$matrix['slug'] = $category->alias;
@@ -46,4 +53,37 @@ class Html extends FOFHtml
 		}
 	}
 
+	protected function getLogo($id)
+	{
+		switch ($id)
+		{
+			case 1:
+				return 'logos/akeebabackup_128.png';
+
+				break;
+
+			case 39:
+				return 'logos/solo-64.png';
+
+				break;
+
+			case 38:
+				return 'logos/solo-64.png';
+
+				break;
+
+			case 12:
+				return 'logos/admintools_128.png';
+
+				break;
+
+			case 26:
+				return 'logos/ats_128.png';
+
+				break;
+
+			default:
+				return '';
+		}
+	}
 }
