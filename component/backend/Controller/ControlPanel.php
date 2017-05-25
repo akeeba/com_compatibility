@@ -19,6 +19,6 @@ class ControlPanel extends Controller
 
 	public function controlpanel($cachable = false)
 	{
-
+		$this->display(true);
 	}
 }
