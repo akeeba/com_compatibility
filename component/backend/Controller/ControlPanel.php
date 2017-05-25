@@ -14,10 +14,10 @@ class ControlPanel extends Controller
 	{
 		parent::__construct($container, $config);
 
-		$this->setPredefinedTaskList(['controlpanel']);
+		$this->setPredefinedTaskList(['show']);
 	}
 
-	public function controlpanel($cachable = false)
+	public function show($cachable = false)
 	{
 		$this->display(true);
 	}

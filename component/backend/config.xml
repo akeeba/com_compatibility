@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
 	<fieldset
+			name="software"
+			label="COM_COMPATIBILITY_CONFIG_SOFTWARE_LABEL"
+			description="COM_COMPATIBILITY_CONFIG_SOFTWARE_DESC"
+	>
+		<field
+			name="include"
+			type="sql"
+			label="COM_COMPATIBILITY_CONFIG_INCLUDE_LABEL"
+			description="COM_COMPATIBILITY_CONFIG_INCLUDE_DESC"
+			default=""
+			query="SELECT `id`, `title` FROM `#__ars_categories`"
+			key_field="id"
+			value_field="title"
+			multiple="multiple"
+			/>
+		<field
+			name="exclude_php"
+			type="sql"
+			label="COM_COMPATIBILITY_CONFIG_EXCLUDE_PHP_LABEL"
+			description="COM_COMPATIBILITY_CONFIG_EXCLUDE_PHP_DESC"
+			default=""
+			query="SELECT `id`, `title` FROM `#__ars_environments` WHERE `xmltitle` LIKE 'php/%'"
+			key_field="id"
+			value_field="title"
+			multiple="multiple"
+			/>
+	</fieldset>
+
+	<fieldset
 			name="permissions"
 			label="JCONFIG_PERMISSIONS_LABEL"
 			description="JCONFIG_PERMISSIONS_DESC"
@@ -15,5 +44,4 @@
 				component="com_compatibility"
 				section="component"/>
 	</fieldset>
-
 </config>
