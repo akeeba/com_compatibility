@@ -121,6 +121,11 @@ class Compatibility extends Model
 			{
 				$matrix[$cmsVersion][$phpVersion] = [];
 
+				if (!$this->allowedCMSAndPHPCombination($cmsType, $cmsVersion, $phpVersion))
+				{
+					continue;
+				}
+
 				if (!isset($byEnvironment[$phpEnvId]))
 				{
 					continue;
@@ -275,5 +280,88 @@ class Compatibility extends Model
 		}
 
 		return $allVersions;
+	}
+
+	/**
+	 * Do we have an allowed CMS and PHP combination?
+	 *
+	 * Different Joomla! versions have different minimum and maximum PHP requirements. While our software may be
+	 * compatible with a wide range of CMS and PHP versions we can't list PHP/Joomla combinations which would cause
+	 * Joomla! to die unceremoniously. For example, Akeeba Backup 5.3 supports PHP 7.0 and Joomla! 3.3 to 3.7 but
+	 * Joomla! itself didn't support PHP 7.0 until its 3.5 release.
+	 *
+	 * @param   string  $cmsType
+	 * @param   string  $cmsVersion
+	 * @param   string  $phpVersion
+	 *
+	 * @return  bool
+	 */
+	protected function allowedCMSAndPHPCombination($cmsType, $cmsVersion, $phpVersion)
+	{
+		$cmsType = strtolower($cmsType);
+
+		// Standalone software is exempt from this check
+		if (strpos($cmsType, 'alone'))
+		{
+			return true;
+		}
+
+		// WordPress has no minimum / maximum PHP versions posted anywhere as far as I know
+		if (strpos($cmsType, 'wordpress'))
+		{
+			return true;
+		}
+
+		// Joomla minimum requirements, see https://downloads.joomla.org/technical-requirements
+		$minPHP = '5.3.10';
+		$maxPHP = '7.9.999';
+
+		if (version_compare($cmsVersion, '1.5.999', 'lt'))
+		{
+			// Joomla! 1.5 - PHP 4.3.10 to 5.5
+			$minPHP = '4.3.10';
+			$maxPHP = '5.5.999';
+		}
+		elseif (version_compare($cmsVersion, '1.7.999', 'lt'))
+		{
+			// Joomla! 1.6, 1.7 - PHP 5.2 to 5.5
+			$minPHP = '5.2.4';
+			$maxPHP = '5.5.999';
+		}
+		elseif (version_compare($cmsVersion, '2.5.999', 'lt'))
+		{
+			// Joomla! 2.5 - PHP 5.2 to 5.6
+			$minPHP = '5.2.4';
+			$maxPHP = '5.6.999';
+		}
+		elseif (version_compare($cmsVersion, '3.2.999', 'lt'))
+		{
+			// Joomla! 3.0 to 3.2 - PHP 5.3.0 to 5.6
+			$minPHP = '5.3.1';
+			$maxPHP = '5.6.999';
+		}
+		elseif (version_compare($cmsVersion, '3.2.999', 'lt'))
+		{
+			// Joomla! 3.3, 3.4 - PHP 5.3.10 to 5.6
+			$minPHP = '5.3.10';
+			$maxPHP = '5.6.999';
+		}
+		elseif (version_compare($cmsVersion, '3.6.999', 'lt'))
+		{
+			// Joomla! 3.5, 3.6 - PHP 5.3.10 to 7.0
+			$minPHP = '5.3.10';
+			$maxPHP = '7.0.999';
+		}
+		elseif (version_compare($cmsVersion, '3.999.999', 'lt'))
+		{
+			// Joomla! 3.7 and later 3.x - PHP 5.3.10 to 7.1
+			$minPHP = '5.3.10';
+			$maxPHP = '7.1.999';
+		}
+
+		$parts = explode('.', $phpVersion);
+		$phpVersion = $parts[0] . '.' . $parts[1] . '.99';
+
+		return version_compare($phpVersion, $minPHP, 'ge') && version_compare($phpVersion, $maxPHP, 'le');
 	}
 }
