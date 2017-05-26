@@ -29,7 +29,7 @@ $title = $software['logo'] . ' ' . $software['title'];
                 <tr>
                     <th></th>
                     @foreach($software['php'] as $phpVersion)
-                        <th>{{ $phpVersion }}</th>
+                        <th>PHP {{ $phpVersion }}</th>
                     @endforeach
                 </tr>
                 </thead>

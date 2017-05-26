@@ -167,6 +167,22 @@ class Compatibility extends Model
 		{
 			$prefix      = 'php/';
 			$versions = $this->loadVersionsFromEnvironment($prefix);
+
+			$excluded = $this->container->params->get('exclude_php');
+
+			$temp = [];
+
+			foreach ($versions as $v => $id)
+			{
+				if (in_array($id, $excluded))
+				{
+					continue;
+				}
+
+				$temp[$v] = $id;
+			}
+
+			$versions = $temp;
 		}
 
 		return $versions;
