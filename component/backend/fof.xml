@@ -13,9 +13,5 @@
         <container>
             <option name="factoryClass">FOF30\Factory\MagicSwitchFactory</option>
         </container>
-        <!-- Dispatcher configuration -->
-        <dispatcher>
-            <option name="defaultView">ControlPanel</option>
-        </dispatcher>
     </backend>
 </fof>
