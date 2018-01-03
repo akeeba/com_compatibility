@@ -1,3 +1,10 @@
+<?php
+/**
+ * @package		com_compatibility
+ * @copyright	Copyright (c)2017-2018 Nicholas K. Dionysopoulos / Akeeba Ltd
+ * @license		GNU General Public License version 3 or later
+ */
+?>
 <div class="panel-body">
     <p>
         The following table tells you which version of our software is compatible with which combination of PHP and

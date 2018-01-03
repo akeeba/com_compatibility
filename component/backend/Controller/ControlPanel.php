@@ -1,6 +1,11 @@
 <?php
-namespace Akeeba\Compatibility\Admin\Controller;
+/**
+ * @package		com_compatibility
+ * @copyright	Copyright (c)2017-2018 Nicholas K. Dionysopoulos / Akeeba Ltd
+ * @license		GNU General Public License version 3 or later
+ */
 
+namespace Akeeba\Compatibility\Admin\Controller;
 
 use FOF30\Container\Container;
 use FOF30\Controller\Controller;

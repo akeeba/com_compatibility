@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Akeeba\Compatibility\Site\Dispatcher
- * @subpackage
- *
- * @copyright   A copyright
- * @license     A "Slug" license name e.g. GPL2
+ * @package		com_compatibility
+ * @copyright	Copyright (c)2017-2018 Nicholas K. Dionysopoulos / Akeeba Ltd
+ * @license		GNU General Public License version 3 or later
  */
 
 namespace Akeeba\Compatibility\Admin\Dispatcher;
