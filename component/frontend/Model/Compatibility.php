@@ -360,9 +360,9 @@ class Compatibility extends Model
 		}
 		elseif (version_compare($cmsVersion, '3.999.999', 'lt'))
 		{
-			// Joomla! 3.7 and later 3.x - PHP 5.3.10 to 7.1
+			// Joomla! 3.7 and later 3.x - PHP 5.3.10 to 7.2
 			$minPHP = '5.3.10';
-			$maxPHP = '7.1.999';
+			$maxPHP = '7.2.999';
 		}
 
 		$parts = explode('.', $phpVersion);
