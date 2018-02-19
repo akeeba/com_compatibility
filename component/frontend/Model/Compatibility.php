@@ -32,6 +32,7 @@ class Compatibility extends Model
 			)
 			->where($db->qn('r.category_id') . ' = ' . $db->q($category_id))
 			->where($db->qn('r.published') . ' = ' . $db->q(1))
+			->where($db->qn('r.maturity') . ' = ' . $db->q('stable'))
 			->where($db->qn('i.published') . ' = ' . $db->q(1))
 			->where($db->qn('environments') . ' IS NOT NULL')
 			->order($db->qn('r.ordering') . ' ASC');
