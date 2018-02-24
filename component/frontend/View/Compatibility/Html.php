@@ -44,7 +44,7 @@ class Html extends FOFHtml
 
 			if ($logo)
 			{
-				$matrix['logo'] = \JHtml::image('images/' . $logo, '', ['width' => 32, 'height' => '32', 'style' => 'vertical-align: middle;']);
+				$matrix['logo'] = "<span class=\"$logo\"></span>";
 			}
 
 			$matrix['title'] = $category->title;
@@ -62,32 +62,32 @@ class Html extends FOFHtml
 		switch ($id)
 		{
 			case 1:
-				return 'logos/akeebabackup_128.png';
+				return 'aklogo-backup-j';
 
 				break;
 
 			case 39:
-				return 'logos/solo-64.png';
+				return 'aklogo-backup-wp';
 
 				break;
 
 			case 38:
-				return 'logos/solo-64.png';
+				return 'aklogo-solo';
 
 				break;
 
 			case 12:
-				return 'logos/admintools_128.png';
+				return 'aklogo-admintools-j';
 
 				break;
 
 			case 26:
-				return 'logos/ats_128.png';
+				return 'aklogo-tickets';
 
 				break;
 
 			default:
-				return '';
+				return 'aklogo-company-logo';
 		}
 	}
 }
