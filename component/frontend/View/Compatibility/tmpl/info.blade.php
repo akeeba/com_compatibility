@@ -10,7 +10,7 @@
 	Joomla! / WordPress. Click on the version number to download it.
 </p>
 
-<div class="alert alert-info">
+<div class="akeeba-block--info">
 	<strong>Remember!</strong> Version numbers are <em>not</em> decimals. Trailing zeros
 	do matter. 5.3.28 is greater than than 5.3.4. For more information please consult our
 	<a href="https://www.akeebabackup.com/how-do-version-numbers-work.html">How to read version numbers</a>

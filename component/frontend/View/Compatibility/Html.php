@@ -38,13 +38,13 @@ class Html extends FOFHtml
 				continue;
 			}
 
-			// TODO Get the logo, render it as an img tag at 32px square
+			// Get the logo, render it as an img tag at 32px square
 			$matrix['logo'] = '';
 			$logo = $this->getLogo($id);
 
 			if ($logo)
 			{
-				$matrix['logo'] = \JHtml::image('images/' . $logo, '', ['width' => 32, 'height' => '32']);
+				$matrix['logo'] = \JHtml::image('images/' . $logo, '', ['width' => 32, 'height' => '32', 'style' => 'vertical-align: middle;']);
 			}
 
 			$matrix['title'] = $category->title;

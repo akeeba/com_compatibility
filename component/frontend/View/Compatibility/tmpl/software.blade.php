@@ -20,14 +20,17 @@ $title = $software['logo'] . ' ' . $software['title'];
 
 ?>
 
-<div class="akeeba-panel">
+<div class="akeeba-panel--information" id="{{ $software['slug'] }}-compatibility">
     <header class="akeeba-block-header">
-        <h3 id="{{ $software['slug'] }}-compatibility">
-            {{ $title }}
+        <h3>
+            {{ $software['logo'] }}
+            <span>
+                {{{ $software['title'] }}}
+            </span>
         </h3>
     </header>
-    <div id="article-software-{{ $software['slug'] }}" class="panel-collapse collapse">
-        <table class="akeeba-table--striped--comfortable--hover--leftbold" style="width: 100%;">
+    <div id="article-software-{{ $software['slug'] }}">
+        <table class="akeeba-table--striped--comfortable--hover" style="width: 100%;">
             <thead>
             <tr>
                 <th></th>
@@ -66,9 +69,13 @@ $title = $software['logo'] . ' ' . $software['title'];
             </tbody>
         </table>
 
-        <div class="alert alert-info">
-            <strong>Looking for all other versions?</strong>
-            You can find all the versions in reverse chronological order in the product's <a href="{{ $software['link'] }}">download page</a>.
+        <div class="akeeba-alert--info">
+            <p>
+                <a href="{{ $software['link'] }}" class="akeeba-btn--big">
+                    <span class="akion-android-download"></span>
+                    All other <em>{{ $software['title'] }}</em> versions
+                </a>
+            </p>
         </div>
 
     </div>
