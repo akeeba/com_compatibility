@@ -86,6 +86,11 @@ class Html extends FOFHtml
 
 				break;
 
+			case 48:
+				return 'aklogo-admintools-wp';
+
+				break;
+
 			default:
 				return 'aklogo-company-logo';
 		}
