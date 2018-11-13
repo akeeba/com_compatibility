@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="70343acb-7e76-4a6c-a7b0-a9ac4e0b0262" name="ABCOM Live" url="https://www.akeebabackup.com">
+        <fileTransfer host="akeebabackup.com" port="18765" rootFolder="/home/akeebaba/public_html" accessType="SFTP" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="18765" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

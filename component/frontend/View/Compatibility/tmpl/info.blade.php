@@ -20,10 +20,7 @@
 <h4>Support policy</h4>
 
 <p>
-	Items in green background are fully supported. Items in yellow background are
-	still supported but we will be dropping support for that Joomla! / WordPress version soon; please upgrade your
-	site. Everything else gets minimal support; we do <em>not</em> guarantee bug or security fixes for minimally
-	supported items.
+	Items in green background are fully supported. Items in dark grey background are  still supported but we will be dropping support for that Joomla! / WordPress version and PHP version combination soon; please upgrade your site. Everything else gets minimal support; we do <em>not</em> guarantee bug or security fixes for minimally supported items. For Akeeba Backup and Akeeba Solo in particular we do <em>not</em> guarantee that uploading to remote storage will work for minimally supported items.
 </p>
 
 <h4>Important PHP version information</h4>
