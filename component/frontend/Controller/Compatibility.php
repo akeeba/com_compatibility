@@ -24,7 +24,6 @@ class Compatibility extends Controller
 
 	public function browse($cache = true)
 	{
-		$cache = false;
 		$this->display($cache);
 	}
 }
