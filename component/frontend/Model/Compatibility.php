@@ -158,9 +158,11 @@ class Compatibility extends Model
 
 		$versionIDs = array_keys($versionNumbers);
 
+		$latestVersion = $versionNumbers[array_shift($versionIDs)];
+
 		return [
 			'type'   => $cmsType,
-			'latest' => $versionNumbers[array_shift($versionIDs)],
+			'latest' => $latestVersion,
 			'php'    => array_keys($phpVersions),
 			'matrix' => $matrix,
 		];
@@ -229,8 +231,23 @@ class Compatibility extends Model
 
 		if (is_null($versions))
 		{
+			$versions = [];
+
+			$prefix      = 'classicpress/';
+			$temp = $this->loadVersionsFromEnvironment($prefix);
+
+			foreach ($temp as $k => $v)
+			{
+				$versions['CP' . $k] = $v;
+			}
+
 			$prefix      = 'wordpress/';
-			$versions = $this->loadVersionsFromEnvironment($prefix);
+			$temp = $this->loadVersionsFromEnvironment($prefix);
+
+			foreach ($temp as $k => $v)
+			{
+				$versions['WP' . $k] = $v;
+			}
 		}
 
 		return $versions;
@@ -314,9 +331,23 @@ class Compatibility extends Model
 		}
 
 		// WordPress has no minimum / maximum PHP versions posted anywhere as far as I know
-		if (strpos($cmsType, 'wordpress'))
+		if (strpos($cmsType, 'wordpress') !== false)
 		{
-			return true;
+			switch (strtoupper(substr($cmsVersion, 0, 2)))
+			{
+				case 'CP':
+					// ClassicPress has a minimum PHP version requirement of 5.6 for all versions
+					$cmsVersion = substr($cmsVersion, 2);
+
+					return version_compare($phpVersion, '5.6', 'ge');
+					break;
+
+				case 'WP':
+				default:
+					return true;
+					break;
+
+			}
 		}
 
 		// Joomla minimum requirements, see https://downloads.joomla.org/technical-requirements
