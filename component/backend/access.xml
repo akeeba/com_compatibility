@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ @package		com_compatibility
+  ~ @copyright	Copyright (c)2017-2019 Nicholas K. Dionysopoulos / Akeeba Ltd
+  ~ @license		GNU General Public License version 3 or later
+  -->
+
 <access component="com_compatibility">
 	<section name="component">
 		<action name="core.admin" title="JACTION_ADMIN" description="JACTION_ADMIN_COMPONENT_DESC" />
