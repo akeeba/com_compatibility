@@ -9,6 +9,9 @@ namespace Akeeba\Compatibility\Admin\Model;
 
 use FOF30\Model\Model;
 
+// Protect from unauthorized access
+defined('_JEXEC') or die();
+
 class ControlPanel extends Model
 {
 }

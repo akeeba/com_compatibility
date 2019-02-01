@@ -4,6 +4,10 @@
  * @copyright	Copyright (c)2017-2019 Nicholas K. Dionysopoulos / Akeeba Ltd
  * @license		GNU General Public License version 3 or later
  */
+
+// Protect from unauthorized access
+defined('_JEXEC') or die();
+
 ?>
 <p>
 	The following table tells you which version of our software is compatible with which combination of PHP and

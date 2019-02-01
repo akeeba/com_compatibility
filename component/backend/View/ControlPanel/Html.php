@@ -9,6 +9,9 @@ namespace Akeeba\Compatibility\Admin\View\ControlPanel;
 
 use FOF30\View\DataView\Html as FOFHtml;
 
+// Protect from unauthorized access
+defined('_JEXEC') or die();
+
 class Html extends FOFHtml
 {
 

@@ -11,6 +11,9 @@ use FOF30\Container\Container;
 use FOF30\Controller\Controller;
 use FOF30\Controller\Mixin\PredefinedTaskList;
 
+// Protect from unauthorized access
+defined('_JEXEC') or die();
+
 class Compatibility extends Controller
 {
 	use PredefinedTaskList;

@@ -7,6 +7,9 @@
 
 namespace Akeeba\Compatibility\Admin\Toolbar;
 
+// Protect from unauthorized access
+defined('_JEXEC') or die();
+
 class Toolbar extends \FOF30\Toolbar\Toolbar
 {
 	public function onControlPanelsShow()

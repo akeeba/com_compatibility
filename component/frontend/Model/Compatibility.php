@@ -13,6 +13,9 @@ use FOF30\Container\Container;
 use FOF30\Model\Model;
 use JRoute;
 
+// Protect from unauthorized access
+defined('_JEXEC') or die();
+
 class Compatibility extends Model
 {
 	public function getMatrix($category_id)

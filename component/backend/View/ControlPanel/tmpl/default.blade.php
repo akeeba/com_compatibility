@@ -6,3 +6,6 @@
  */
 
 /** @var \FOF30\View\DataView\Html $this */
+
+// Protect from unauthorized access
+defined('_JEXEC') or die();

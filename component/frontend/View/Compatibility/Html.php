@@ -12,6 +12,9 @@ use Akeeba\ReleaseSystem\Site\Model\Categories;
 use FOF30\Container\Container;
 use FOF30\View\DataView\Html as FOFHtml;
 
+// Protect from unauthorized access
+defined('_JEXEC') or die();
+
 class Html extends FOFHtml
 {
 	public $data = [];
