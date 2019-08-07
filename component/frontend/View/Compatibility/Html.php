@@ -69,6 +69,11 @@ class Html extends FOFHtml
 
 				break;
 
+			case 2:
+				return 'aklogo-kickstart';
+
+				break;
+
 			case 39:
 				return 'aklogo-backup-wp';
 
