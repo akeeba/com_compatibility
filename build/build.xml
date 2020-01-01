@@ -1,4 +1,10 @@
 <?xml version="1.0"?>
+<!--
+  ~ @package		com_compatibility
+  ~ @copyright	Copyright (c)2017-2020 Nicholas K. Dionysopoulos / Akeeba Ltd
+  ~ @license		GNU General Public License version 3 or later
+  -->
+
 <project name="CompatibilityJoomla" description="Compatibility Information for AkeebaBackup.com" default="git" >
 
     <import file="${phing.dir}/../../buildfiles/phing/common.xml" />
