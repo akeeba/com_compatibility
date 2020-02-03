@@ -339,15 +339,53 @@ class Compatibility extends Model
 			switch (strtoupper(substr($cmsVersion, 0, 2)))
 			{
 				case 'CP':
-					// ClassicPress has a minimum PHP version requirement of 5.6 for all versions
-					$cmsVersion = substr($cmsVersion, 2);
+					if (version_compare($cmsVersion, '1.999.999', 'lt'))
+					{
+						// ClassicPress 1.x -- PHP 5.6 to 7.4
+						// https://petitions.classicpress.net/posts/6/minimum-php-version-should-be-7-x towards end
+						$minPHP = '5.6.0';
+						$maxPHP = '7.4.999';
+					}
+					elseif (version_compare($cmsVersion, '2.999.999', 'lt'))
+					{
+						// ClassicPress 2.x -- Probably PHP 7.3 to 7.4
+						// https://www.classicpress.net/roadmap/
+						$minPHP = '7.3.0';
+						$maxPHP = '7.4.999';
+					}
 
-					return version_compare($phpVersion, '5.6', 'ge');
+					$parts = explode('.', $phpVersion);
+					$phpVersion = $parts[0] . '.' . $parts[1] . '.99';
+
+					return version_compare($phpVersion, $minPHP, 'ge') && version_compare($phpVersion, $maxPHP, 'le');
 					break;
 
 				case 'WP':
 				default:
-					return true;
+					// See http://displaywp.com/wordpress-minimum-php-version/
+					if (version_compare($cmsVersion, '4.9.0', 'lt'))
+					{
+						// WordPress up to and including 4.8 (marked as 3.8 in our releases) -- PHP 5.2.4 to 7.2
+						$minPHP = '5.2.4';
+						$maxPHP = '7.2.999';
+					}
+					elseif (version_compare($cmsVersion, '5.2.0', 'lt'))
+					{
+						// WordPress 4.9 up to 5.1 (marked as 4.9 in our releases) -- PHP 5.2.4 to 7.4
+						$minPHP = '5.2.4';
+						$maxPHP = '7.4.999';
+					}
+					else
+					{
+						// WordPress 5.2 or later -- PHP 5.6.20 to 7.4
+						$minPHP = '5.6.20';
+						$maxPHP = '7.4.999';
+					}
+
+					$parts = explode('.', $phpVersion);
+					$phpVersion = $parts[0] . '.' . $parts[1] . '.99';
+
+					return version_compare($phpVersion, $minPHP, 'ge') && version_compare($phpVersion, $maxPHP, 'le');
 					break;
 
 			}
@@ -393,17 +431,29 @@ class Compatibility extends Model
 			$minPHP = '5.3.10';
 			$maxPHP = '7.0.999';
 		}
-		elseif (version_compare($cmsVersion, '3.8.999', 'lt'))
+		elseif (version_compare($cmsVersion, '3.7.999', 'lt'))
 		{
-			// Joomla! 3.7 and 3.8 - PHP 5.3.10 to 7.2
+			// Joomla! 3.7 - PHP 5.3.10 to 7.2
 			$minPHP = '5.3.10';
 			$maxPHP = '7.2.999';
 		}
-		elseif (version_compare($cmsVersion, '3.999.999', 'lt'))
+		elseif (version_compare($cmsVersion, '3.8.999', 'lt'))
 		{
-			// Joomla! 3.9 and later 3.x - PHP 5.3.10 to 7.3
+			// Joomla! 3.8 - PHP 5.3.10 to 7.3
 			$minPHP = '5.3.10';
 			$maxPHP = '7.3.999';
+		}
+		elseif (version_compare($cmsVersion, '3.999.999', 'lt'))
+		{
+			// Joomla! 3.9 and later 3.x - PHP 5.3.10 to 7.4
+			$minPHP = '5.3.10';
+			$maxPHP = '7.4.999';
+		}
+		elseif (version_compare($cmsVersion, '4.0.999', 'lt'))
+		{
+			// Joomla! 4.0 - PHP 7.2 to 7.4
+			$minPHP = '7.2.0';
+			$maxPHP = '7.4.999';
 		}
 
 		$parts = explode('.', $phpVersion);
