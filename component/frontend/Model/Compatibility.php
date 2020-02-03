@@ -339,6 +339,8 @@ class Compatibility extends Model
 			switch (strtoupper(substr($cmsVersion, 0, 2)))
 			{
 				case 'CP':
+					$cmsVersion = substr($cmsVersion, 2);
+
 					if (version_compare($cmsVersion, '1.999.999', 'lt'))
 					{
 						// ClassicPress 1.x -- PHP 5.6 to 7.4
@@ -362,14 +364,17 @@ class Compatibility extends Model
 
 				case 'WP':
 				default:
+					$cmsVersion = substr($cmsVersion, 2);
+					$cmsVersion = trim($cmsVersion, '+ /');
+
 					// See http://displaywp.com/wordpress-minimum-php-version/
-					if (version_compare($cmsVersion, '4.9.0', 'lt'))
+					if (version_compare($cmsVersion, '4.8.999', 'lt'))
 					{
 						// WordPress up to and including 4.8 (marked as 3.8 in our releases) -- PHP 5.2.4 to 7.2
 						$minPHP = '5.2.4';
 						$maxPHP = '7.2.999';
 					}
-					elseif (version_compare($cmsVersion, '5.2.0', 'lt'))
+					elseif (version_compare($cmsVersion, '5.1.999', 'lt'))
 					{
 						// WordPress 4.9 up to 5.1 (marked as 4.9 in our releases) -- PHP 5.2.4 to 7.4
 						$minPHP = '5.2.4';
