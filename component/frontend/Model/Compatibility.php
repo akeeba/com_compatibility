@@ -246,10 +246,20 @@ class Compatibility extends Model
 		$versionIDs    = array_keys($versionNumbers);
 		$latestVersion = $versionNumbers[array_shift($versionIDs)];
 
+		$matrix              = $this->postProcessMatrix($matrix);
+		$reportedPHPVersions = [];
+
+		if (!empty($matrix))
+		{
+			$keys                = array_keys($matrix);
+			$firstKey            = array_shift($keys);
+			$reportedPHPVersions = array_keys($matrix[$firstKey]);
+		}
+
 		return [
 			'type'   => $cmsType,
 			'latest' => $latestVersion,
-			'php'    => array_keys($phpVersions),
+			'php'    => $reportedPHPVersions,
 			'matrix' => $matrix,
 			'logo'   => sprintf("<span class=\"%s\"></span>", $item->icon ?: 'aklogo-company-logo'),
 			'title'  => $item->title ?: $category->title,
@@ -430,14 +440,14 @@ class Compatibility extends Model
 			switch (strtoupper(substr($cmsVersion, 0, 2)))
 			{
 				case 'CP':
-					$cmsType = 'cp';
+					$cmsType    = 'cp';
 					$cmsVersion = substr($cmsVersion, 2);
 					$cmsVersion = trim($cmsVersion, '+ /');
 
 					break;
 
 				case 'WP':
-					$cmsType = 'wp';
+					$cmsType    = 'wp';
 					$cmsVersion = substr($cmsVersion, 2);
 					$cmsVersion = trim($cmsVersion, '+ /');
 
@@ -512,5 +522,60 @@ class Compatibility extends Model
 
 			$this->cmsRules[$type][$version] = [$min, $max];
 		}
+	}
+
+	private function postProcessMatrix(array $matrix)
+	{
+		// Remove empty rows
+		$matrix = array_filter($matrix, function (array $row): bool {
+			foreach ($row as $column)
+			{
+				if (!empty($column))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		});
+
+		if (empty($matrix))
+		{
+			return $matrix;
+		}
+
+		// Let's see which columns should be included
+		$keys        = array_keys($matrix);
+		$firstKey    = array_shift($keys);
+		$phpVersions = array_keys($matrix[$firstKey]);
+		$columnMap   = array_combine($phpVersions, array_fill(0, count($phpVersions), false));
+
+		array_map(function ($row) use (&$columnMap) {
+			$thisMap = array_map(function ($innerValue) {
+				return !empty($innerValue);
+			}, $row);
+
+			foreach ($thisMap as $k => $v)
+			{
+				$columnMap[$k] = $v || $columnMap[$k];
+			}
+		}, $matrix);
+
+		// Create a dumb array with the accepted column tags (PHP versions)
+		$acceptedColumns = array_keys(array_filter($columnMap, function ($v) {
+			return $v;
+		}));
+
+		// Let's reconstruct the matrix keeping only the accepted columns
+		return array_map(function ($row) use ($acceptedColumns) {
+			$temp = [];
+
+			foreach ($acceptedColumns as $phpVer)
+			{
+				$temp[$phpVer] = $row[$phpVer];
+			}
+
+			return $temp;
+		}, $matrix);
 	}
 }
