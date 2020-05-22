@@ -1,8 +1,8 @@
 <?php
 /**
- * @package		com_compatibility
- * @copyright	Copyright (c)2017-2020 Nicholas K. Dionysopoulos / Akeeba Ltd
- * @license		GNU General Public License version 3 or later
+ * @package        com_compatibility
+ * @copyright      Copyright (c)2017-2020 Nicholas K. Dionysopoulos / Akeeba Ltd
+ * @license        GNU General Public License version 3 or later
  */
 
 namespace Akeeba\Compatibility\Site\Model;
@@ -10,7 +10,9 @@ namespace Akeeba\Compatibility\Site\Model;
 use Akeeba\ReleaseSystem\Site\Model\Categories;
 use Akeeba\ReleaseSystem\Site\Model\Items;
 use FOF30\Container\Container;
+use FOF30\Model\DataModel\Exception\RecordNotLoaded;
 use FOF30\Model\Model;
+use Joomla\CMS\Router\Route;
 use JRoute;
 
 // Protect from unauthorized access
@@ -18,8 +20,84 @@ defined('_JEXEC') or die();
 
 class Compatibility extends Model
 {
-	public function getMatrix($category_id)
+	/**
+	 * Returns the version information for the front-end
+	 *
+	 * @return  array
+	 */
+	public function getDisplayData(): array
 	{
+		return array_filter(
+			array_map([$this, 'getCategoryVersionInformation'], $this->getConfiguredSoftware()),
+			function (?array $item): bool {
+				return is_array($item) && !empty($item);
+			});
+	}
+
+	/**
+	 * Returns the configured software for displaying compatibility information
+	 *
+	 * @return  array  Array of plain objects with the keys catid, title and icon
+	 */
+	protected function getConfiguredSoftware(): array
+	{
+		$ret = [];
+
+		$extensions = $this->container->params->get('extensions', '{}');
+		$extensions = @json_decode($extensions);
+
+		if (empty($extensions))
+		{
+			return $ret;
+		}
+
+		$categories = $extensions->category ?? [];
+		$titles     = $extensions->title ?? [];
+		$icons      = $extensions->icon ?? [];
+
+		$count = max(count($categories), count($titles), count($icons));
+
+		for ($i = 0; $i < $count; $i++)
+		{
+			$ret[] = (object) [
+				'catid' => $categories[$i] ?? null,
+				'title' => $titles[$i] ?? null,
+				'icon'  => $icons[$i] ?? 'aklogo-company-logo',
+			];
+		}
+
+		return $ret;
+	}
+
+	/**
+	 * Returns the version compatibility information for a configured software
+	 *
+	 * @return  array|null  Version compatibility information, null on invalid category
+	 */
+	protected function getCategoryVersionInformation(object $item): ?array
+	{
+		// Get the category ID
+		$category_id = $item->catid ?? 0;
+
+		if (empty($category_id))
+		{
+			return null;
+		}
+
+		// Try to load the category
+		/** @var Categories $category */
+		$arsContainer = Container::getInstance('com_ars');
+		$category     = $arsContainer->factory->model('Categories')->tmpInstance();
+
+		try
+		{
+			$category = $category->findOrFail($item->catid);
+		}
+		catch (RecordNotLoaded $e)
+		{
+			return null;
+		}
+
 		// Get all item entries ordered by ordering ascending (newest release first)
 		$db      = $this->container->db;
 		$query   = $db->getQuery(true)
@@ -159,8 +237,7 @@ class Compatibility extends Model
 			}
 		}
 
-		$versionIDs = array_keys($versionNumbers);
-
+		$versionIDs    = array_keys($versionNumbers);
 		$latestVersion = $versionNumbers[array_shift($versionIDs)];
 
 		return [
@@ -168,6 +245,10 @@ class Compatibility extends Model
 			'latest' => $latestVersion,
 			'php'    => array_keys($phpVersions),
 			'matrix' => $matrix,
+			'logo'   => sprintf("<span class=\"%s\"></span>", $item->icon ?: 'aklogo-company-logo'),
+			'title'  => $item->title ?: $category->title,
+			'link'   => Route::_('index.php?option=com_ars&view=Releases&category_id=' . $item->catid),
+			'slug'   => $category->alias,
 		];
 	}
 
@@ -182,7 +263,7 @@ class Compatibility extends Model
 
 		if (is_null($versions))
 		{
-			$prefix      = 'php/';
+			$prefix   = 'php/';
 			$versions = $this->loadVersionsFromEnvironment($prefix);
 
 			$excluded = $this->container->params->get('exclude_php');
@@ -216,7 +297,7 @@ class Compatibility extends Model
 
 		if (is_null($versions))
 		{
-			$prefix      = 'joomla/';
+			$prefix   = 'joomla/';
 			$versions = $this->loadVersionsFromEnvironment($prefix);
 		}
 
@@ -236,16 +317,16 @@ class Compatibility extends Model
 		{
 			$versions = [];
 
-			$prefix      = 'classicpress/';
-			$temp = $this->loadVersionsFromEnvironment($prefix);
+			$prefix = 'classicpress/';
+			$temp   = $this->loadVersionsFromEnvironment($prefix);
 
 			foreach ($temp as $k => $v)
 			{
 				$versions['CP' . $k] = $v;
 			}
 
-			$prefix      = 'wordpress/';
-			$temp = $this->loadVersionsFromEnvironment($prefix);
+			$prefix = 'wordpress/';
+			$temp   = $this->loadVersionsFromEnvironment($prefix);
 
 			foreach ($temp as $k => $v)
 			{
@@ -356,7 +437,7 @@ class Compatibility extends Model
 						$maxPHP = '7.4.999';
 					}
 
-					$parts = explode('.', $phpVersion);
+					$parts      = explode('.', $phpVersion);
 					$phpVersion = $parts[0] . '.' . $parts[1] . '.99';
 
 					return version_compare($phpVersion, $minPHP, 'ge') && version_compare($phpVersion, $maxPHP, 'le');
@@ -387,7 +468,7 @@ class Compatibility extends Model
 						$maxPHP = '7.4.999';
 					}
 
-					$parts = explode('.', $phpVersion);
+					$parts      = explode('.', $phpVersion);
 					$phpVersion = $parts[0] . '.' . $parts[1] . '.99';
 
 					return version_compare($phpVersion, $minPHP, 'ge') && version_compare($phpVersion, $maxPHP, 'le');
@@ -461,7 +542,7 @@ class Compatibility extends Model
 			$maxPHP = '7.4.999';
 		}
 
-		$parts = explode('.', $phpVersion);
+		$parts      = explode('.', $phpVersion);
 		$phpVersion = $parts[0] . '.' . $parts[1] . '.99';
 
 		return version_compare($phpVersion, $minPHP, 'ge') && version_compare($phpVersion, $maxPHP, 'le');
