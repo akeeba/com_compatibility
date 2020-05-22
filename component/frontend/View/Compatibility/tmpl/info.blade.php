@@ -10,35 +10,26 @@ defined('_JEXEC') or die();
 
 ?>
 <p>
-	The following table tells you which version of our software is compatible with which combination of PHP and
-	Joomla! / WordPress. Click on the version number to download it.
+    @lang('COM_COMPATIBILITY_LBL_INTRO_TOP')
 </p>
 
 <div class="akeeba-block--info">
-	<strong>Remember!</strong> Version numbers are <em>not</em> decimals. Trailing zeros
-	do matter. 5.3.28 is greater than than 5.3.4. For more information please consult our
-	<a href="https://www.akeebabackup.com/how-do-version-numbers-work.html">How to read version numbers</a>
-	page.
+    @sprintf('COM_COMPATIBILITY_LBL_VERSIONNUMBER_NOTICE', Joomla\CMS\Uri\Uri::base() . 'how-do-version-numbers-work.html')
 </div>
 
-<h4>Support policy</h4>
+<h4>@lang('COM_COMPATIBILITY_HEAD_SUPPORT_POLICY')</h4>
 
 <p>
-	Items in green background are fully supported. Items in dark grey background are  still supported but we will be dropping support for that Joomla! / WordPress version and PHP version combination soon; please upgrade your site. Everything else gets minimal support; we do <em>not</em> guarantee bug or security fixes for minimally supported items. For Akeeba Backup and Akeeba Solo in particular we do <em>not</em> guarantee that uploading to remote storage will work for minimally supported items.
+	@lang('COM_COMPATIBILITY_LBL_SUPPORT_POLICY')
 </p>
 
-<h4>Important PHP version information</h4>
+<h4>
+    @lang('COM_COMPATIBILITY_HEAD_PHP_VERSION_INFO')
+</h4>
 
 <p>
-	We only guarantee that we will support the PHP branches <a href="http://php.net/supported-versions.php">currently
-	supported by the PHP project</a>. Support for earlier, end of life branches of PHP may be discontinued without
-	warning.
+    @sprintf('COM_COMPATIBILITY_HEAD_LBL_PHP_VERSION_SUPPORTED', 'http://php.net/supported-versions.php')
 </p>
 <p>
-	Any PHP version older than a couple of months, even if it belongs to a supported branch, can be assumed out
-	of date and vulnerable to security flaws. This also applies if your Linux distribution claims to backport
-	security fixes;  they will <em>only</em> backport those marked as high impact, not <em>all</em> security fixes.
-	Moreover, your Linux distribution will <em>never</em> backport bug fixes. Bugs in older PHP versions do cause
-	software to behave erratically. Not just our software but also Joomla!, WordPress or anything else you might be
-	using.
+	@lang('COM_COMPATIBILITY_HEAD_LBL_PHP_VERSION_UPGRADENAG')
 </p>

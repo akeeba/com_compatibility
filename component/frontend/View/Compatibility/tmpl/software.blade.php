@@ -98,6 +98,8 @@ $title = $software['logo'] . ' ' . $software['title'];
             </tbody>
         </table>
 
+        <p>&nbsp;</p>
+
         <div class="akeeba-alert--info">
             <p>
                 <a href="{{ $software['link'] }}" class="akeeba-btn--big">
