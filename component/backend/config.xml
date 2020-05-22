@@ -6,84 +6,163 @@
   -->
 
 <config>
-	<fieldset
-			name="software"
-			label="COM_COMPATIBILITY_CONFIG_SOFTWARE_LABEL"
-			description="COM_COMPATIBILITY_CONFIG_SOFTWARE_DESC"
-	>
-		<field
-			name="include"
-			type="sql"
-			label="COM_COMPATIBILITY_CONFIG_INCLUDE_LABEL"
-			description="COM_COMPATIBILITY_CONFIG_INCLUDE_DESC"
-			default=""
-			query="SELECT `id`, `title` FROM `#__ars_categories`"
-			key_field="id"
-			value_field="title"
-			multiple="multiple"
-			/>
-		<field
-			name="exclude_php"
-			type="sql"
-			label="COM_COMPATIBILITY_CONFIG_EXCLUDE_PHP_LABEL"
-			description="COM_COMPATIBILITY_CONFIG_EXCLUDE_PHP_DESC"
-			default=""
-			query="SELECT `id`, `title` FROM `#__ars_environments` WHERE `xmltitle` LIKE 'php/%'"
-			key_field="id"
-			value_field="title"
-			multiple="multiple"
-			/>
+    <fieldset
+            name="software"
+            label="COM_COMPATIBILITY_CONFIG_SOFTWARE_LABEL"
+            description="COM_COMPATIBILITY_CONFIG_SOFTWARE_DESC"
+    >
+        <field
+                name="extensions"
+                type="repeatable"
+                icon="list"
+                label="COM_COMPATIBILITY_CONFIG_EXTENSIONS_LABEL"
+                description="COM_COMPATIBILITY_CONFIG_EXTENSIONS_DESC"
+                default=""
+        >
+            <fieldset hidden="true" name="extensions_modal" repeat="true">
+                <field
+                        name="category"
+                        type="sql"
+                        label="COM_COMPATIBILITY_CONFIG_CATEGORY_LABEL"
+                        description="COM_COMPATIBILITY_CONFIG_CATEGORY_DESC"
+                        default=""
+                        query="SELECT `id`, `title` FROM `#__ars_categories` WHERE `type` = 'normal' ORDER BY `title` ASC"
+                        key_field="id"
+                        value_field="title"
+                />
 
-		<field name="load_fef" type="list" default="3"
-			   label="COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF"
-			   description="COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_DESC">
-			<option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_NEVER</option>
-			<option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_FRONTEND</option>
-			<option value="2">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BACKEND</option>
-			<option value="3">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BOTH</option>
-		</field>
+                <field
+                        name="title"
+                        type="text"
+                        label="COM_COMPATIBILITY_CONFIG_TITLE_LABEL"
+                        description="COM_COMPATIBILITY_CONFIG_TITLE_DESC"
+                        default=""
+                />
 
-		<field name="fef_reset" type="list" default="3"
-			   label="COM_COMPATIBILITY_CONFIG_BACKEND_FEF_RESET"
-			   description="COM_COMPATIBILITY_CONFIG_BACKEND_FEF_RESET_DESC">
-			<option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_NEVER</option>
-			<option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_FRONTEND</option>
-			<option value="2">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BACKEND</option>
-			<option value="3">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BOTH</option>
-		</field>
+                <field
+                        name="icon"
+                        type="text"
+                        label="COM_COMPATIBILITY_CONFIG_ICON_LABEL"
+                        description="COM_COMPATIBILITY_CONFIG_ICON_DESC"
+                        default="aklogo-company-logo"
+                />
+            </fieldset>
+        </field>
 
-		<field name="dark_mode_backend" type="radio" default="-1"
-			   label="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_BACKEND_LABEL"
-			   description="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_BACKEND_DESC"
-			   class="switcher btn-group">
-			<option value="-1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_AUTO</option>
-			<option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_NEVER</option>
-			<option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_ALWAYS</option>
-		</field>
+        <field
+                name="cms"
+                type="repeatable"
+                icon="list"
+                label="COM_COMPATIBILITY_CONFIG_CMS_LABEL"
+                description="COM_COMPATIBILITY_CONFIG_CMS_DESC"
+                default=""
+        >
+            <fieldset hidden="true" name="cms_modal" repeat="true">
+				<field
+					type="list"
+					name="type"
+					label="COM_COMPATIBILITY_CONFIG_TYPE_LABEL"
+					description="COM_COMPATIBILITY_CONFIG_TYPE_DESC"
+					default="joomla">
+					<option value="joomla">COM_COMPATIBILITY_CONFIG_TYPE_JOOMLA</option>
+					<option value="wp">COM_COMPATIBILITY_CONFIG_TYPE_WORDPRESS</option>
+					<option value="cp">COM_COMPATIBILITY_CONFIG_TYPE_CLASSICPRESS</option>
+				</field>
 
-		<field name="dark_mode_frontend" type="radio" default="-1"
-			   label="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_FRONTEND_LABEL"
-			   description="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_FRONTEND_DESC"
-			   class="switcher btn-group">
-			<option value="-1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_AUTO</option>
-			<option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_NEVER</option>
-			<option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_ALWAYS</option>
-		</field>
-	</fieldset>
+				<field
+					type="text"
+					name="version"
+					label="COM_COMPATIBILITY_CONFIG_VERSION_LABEL"
+					description="COM_COMPATIBILITY_CONFIG_VERSION_DESC"
+					default=""
+				/>
 
-	<fieldset
-			name="permissions"
-			label="JCONFIG_PERMISSIONS_LABEL"
-			description="JCONFIG_PERMISSIONS_DESC"
-	>
+				<field
+						type="text"
+						name="min"
+						label="COM_COMPATIBILITY_CONFIG_MIN_LABEL"
+						description="COM_COMPATIBILITY_CONFIG_MIN_DESC"
+						default=""
+				/>
 
-		<field
-				name="rules"
-				type="rules"
-				label="JCONFIG_PERMISSIONS_LABEL"
-				class="inputbox"
-				filter="rules"
-				component="com_compatibility"
-				section="component"/>
-	</fieldset>
+				<field
+						type="text"
+						name="max"
+						label="COM_COMPATIBILITY_CONFIG_MAX_LABEL"
+						description="COM_COMPATIBILITY_CONFIG_MAX_DESC"
+						default=""
+				/>
+			</fieldset>
+        </field>
+
+        <field
+                name="exclude_php"
+                type="sql"
+                label="COM_COMPATIBILITY_CONFIG_EXCLUDE_PHP_LABEL"
+                description="COM_COMPATIBILITY_CONFIG_EXCLUDE_PHP_DESC"
+                default=""
+                query="SELECT `id`, `title` FROM `#__ars_environments` WHERE `xmltitle` LIKE 'php/%'"
+                key_field="id"
+                value_field="title"
+                multiple="multiple"
+        />
+    </fieldset>
+
+    <fieldset
+            name="display"
+            label="COM_COMPATIBILITY_CONFIG_DISPLAY_LABEL"
+            description="COM_COMPATIBILITY_CONFIG_DISPLAY_DESC"
+    >
+        <field name="load_fef" type="list" default="3"
+               label="COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF"
+               description="COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_DESC">
+            <option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_NEVER</option>
+            <option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_FRONTEND</option>
+            <option value="2">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BACKEND</option>
+            <option value="3">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BOTH</option>
+        </field>
+
+        <field name="fef_reset" type="list" default="3"
+               label="COM_COMPATIBILITY_CONFIG_BACKEND_FEF_RESET"
+               description="COM_COMPATIBILITY_CONFIG_BACKEND_FEF_RESET_DESC">
+            <option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_NEVER</option>
+            <option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_FRONTEND</option>
+            <option value="2">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BACKEND</option>
+            <option value="3">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BOTH</option>
+        </field>
+
+        <field name="dark_mode_backend" type="radio" default="-1"
+               label="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_BACKEND_LABEL"
+               description="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_BACKEND_DESC"
+               class="switcher btn-group">
+            <option value="-1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_AUTO</option>
+            <option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_NEVER</option>
+            <option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_ALWAYS</option>
+        </field>
+
+        <field name="dark_mode_frontend" type="radio" default="-1"
+               label="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_FRONTEND_LABEL"
+               description="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_FRONTEND_DESC"
+               class="switcher btn-group">
+            <option value="-1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_AUTO</option>
+            <option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_NEVER</option>
+            <option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_ALWAYS</option>
+        </field>
+    </fieldset>
+
+    <fieldset
+            name="permissions"
+            label="JCONFIG_PERMISSIONS_LABEL"
+            description="JCONFIG_PERMISSIONS_DESC"
+    >
+
+        <field
+                name="rules"
+                type="rules"
+                label="JCONFIG_PERMISSIONS_LABEL"
+                class="inputbox"
+                filter="rules"
+                component="com_compatibility"
+                section="component"/>
+    </fieldset>
 </config>
