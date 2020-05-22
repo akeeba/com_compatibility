@@ -8,12 +8,25 @@
 namespace Akeeba\Compatibility\Admin\Toolbar;
 
 // Protect from unauthorized access
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Toolbar\ToolbarHelper as JToolbarHelper;
+
 defined('_JEXEC') or die();
 
 class Toolbar extends \FOF30\Toolbar\Toolbar
 {
 	public function onControlPanelsShow()
 	{
-		$this->onCpanelsBrowse();
+		$option = $this->container->componentName;
+
+		JToolbarHelper::title(Text::_(strtoupper($option)), str_replace('com_', '', $option));
+
+		if (!$this->isDataView())
+		{
+			return;
+		}
+
+		JToolbarHelper::preferences($option);
+
 	}
 }

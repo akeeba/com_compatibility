@@ -9,3 +9,8 @@
 
 // Protect from unauthorized access
 defined('_JEXEC') or die();
+?>
+
+<div class="akeeba-block--info">
+    @lang('COM_COMPATIBILITY_CONTROLPANEL_LBL_HOWTOUSE')
+</div>
