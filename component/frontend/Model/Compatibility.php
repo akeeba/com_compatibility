@@ -13,6 +13,7 @@ use FOF30\Container\Container;
 use FOF30\Model\DataModel\Exception\RecordNotLoaded;
 use FOF30\Model\Model;
 use Joomla\CMS\Router\Route;
+use Joomla\Utilities\ArrayHelper;
 
 // Protect from unauthorized access
 defined('_JEXEC') or die();
@@ -47,32 +48,19 @@ class Compatibility extends Model
 	 */
 	protected function getConfiguredSoftware(): array
 	{
-		$ret = [];
+		$nullObject = new \stdClass();
 
-		$extensions = $this->container->params->get('extensions', '{}');
-		$extensions = @json_decode($extensions);
+		$extensions = $this->container->params->get('extensions', $nullObject);
 
-		if (empty($extensions))
-		{
-			return $ret;
-		}
+		return array_map(function (array $software) {
+			$software = (object) $software;
 
-		$categories = $extensions->category ?? [];
-		$titles     = $extensions->title ?? [];
-		$icons      = $extensions->icon ?? [];
-
-		$count = max(count($categories), count($titles), count($icons));
-
-		for ($i = 0; $i < $count; $i++)
-		{
-			$ret[] = (object) [
-				'catid' => $categories[$i] ?? null,
-				'title' => $titles[$i] ?? null,
-				'icon'  => $icons[$i] ?? 'aklogo-company-logo',
+			return (object) [
+				'catid' => $software->category ?? null,
+				'title' => $software->title ?? null,
+				'icon'  => $software->icon ?? 'aklogo-company-logo',
 			];
-		}
-
-		return $ret;
+		}, ArrayHelper::fromObject($extensions));
 	}
 
 	/**
@@ -503,24 +491,22 @@ class Compatibility extends Model
 			'wp'     => [],
 		];
 
-		$cmsRules = $this->container->params->get('cms', '{}');
-		$cmsRules = @json_decode($cmsRules);
+		$nullObject = new \stdClass();
+		$cmsRules   = $this->container->params->get('cms', $nullObject);
+		$cmsRules   = array_map(function (array $rule) {
+			$rule = (object) $rule;
 
-		$types    = $cmsRules->type ?? [];
-		$versions = $cmsRules->version ?? [];
-		$minPHPs  = $cmsRules->min ?? [];
-		$maxPHPs  = $cmsRules->max ?? [];
+			return (object) [
+				'type'    => $rule->type ?? '',
+				'version' => $rule->version ?? '0.0.999',
+				'min'     => $rule->min ?? '999.999.999',
+				'max'     => $rule->max ?? '999.999.999',
+			];
+		}, ArrayHelper::fromObject($cmsRules));
 
-		$count = max(count($types), count($versions), count($minPHPs), count($maxPHPs));
-
-		for ($i = 0; $i < $count; $i++)
+		foreach ($cmsRules as $rule)
 		{
-			$type    = $types[$i] ?? '';
-			$version = $versions[$i] ?? '0.0.999';
-			$min     = $minPHPs[$i] ?? '999.999.999';
-			$max     = $maxPHPs[$i] ?? '999.999.9999';
-
-			$this->cmsRules[$type][$version] = [$min, $max];
+			$this->cmsRules[$rule->type][$rule->version] = [$rule->min, $rule->max];
 		}
 	}
 

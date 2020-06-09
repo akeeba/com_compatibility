@@ -13,13 +13,16 @@
     >
         <field
                 name="extensions"
-                type="repeatable"
-                icon="list"
+                type="subform"
                 label="COM_COMPATIBILITY_CONFIG_EXTENSIONS_LABEL"
                 description="COM_COMPATIBILITY_CONFIG_EXTENSIONS_DESC"
-                default="{'category':['1','12','26','42','46','2','39','48','38'],'title':['Akeeba Backup for Joomla!','Admin Tools for Joomla!','Akeeba Ticket System','Akeeba FOF (backend framework) for Joomla','Akeeba Frontend Framework (FEF) for Joomla','Akeeba Kickstart','Akeeba Backup for WordPress','Admin Tools for WordPress','Akeeba Solo'],'icon':['aklogo-backup-j','aklogo-admintools-j','aklogo-tickets','aklogo-company-logo','aklogo-company-logo','aklogo-kickstart','aklogo-backup-wp','aklogo-admintools-wp','aklogo-solo']}"
+                min="1"
+                multiple="true"
+                buttons="add,remove,move"
+                layout="joomla.form.field.subform.repeatable-table"
+                groupByFieldset="false"
         >
-            <fieldset hidden="true" name="extensions_modal" repeat="true">
+            <form>
                 <field
                         name="category"
                         type="sql"
@@ -46,53 +49,56 @@
                         description="COM_COMPATIBILITY_CONFIG_ICON_DESC"
                         default="aklogo-company-logo"
                 />
-            </fieldset>
+            </form>
         </field>
 
         <field
                 name="cms"
-                type="repeatable"
-                icon="list"
+                type="subform"
                 label="COM_COMPATIBILITY_CONFIG_CMS_LABEL"
                 description="COM_COMPATIBILITY_CONFIG_CMS_DESC"
-                default="{'type':['joomla','joomla','joomla','joomla','joomla','joomla','joomla','joomla','joomla','joomla','cp','cp','wp','wp','wp'],'version':['1.5.999','1.7.999','2.5.999','3.2.999','3.4.999','3.6.999','3.7.999','3.8.999','3.999.999','4.0.999','1.999.999','2.999.999','4.8.999','5.1.999','5.999.999'],'min':['4.3.10','5.2.4','5.2.4','5.3.1','5.3.10','5.3.10','5.3.10','5.3.10','5.3.10','7.2.0','5.6.0','7.3.0','5.2.4','5.2.4','5.6.20'],'max':['5.5.999','5.5.999','5.6.999','5.6.999','5.6.999','7.0.999','7.2.999','7.3.999','7.4.999','7.4.999','7.4.999','7.4.999','7.2.999','7.4.999','7.4.999']}"
+                min="1"
+                multiple="true"
+                buttons="add,remove,move"
+                layout="joomla.form.field.subform.repeatable-table"
+                groupByFieldset="false"
         >
-            <fieldset hidden="true" name="cms_modal" repeat="true">
-				<field
-					type="list"
-					name="type"
-					label="COM_COMPATIBILITY_CONFIG_TYPE_LABEL"
-					description="COM_COMPATIBILITY_CONFIG_TYPE_DESC"
-					default="joomla">
-					<option value="joomla">COM_COMPATIBILITY_CONFIG_TYPE_JOOMLA</option>
-					<option value="wp">COM_COMPATIBILITY_CONFIG_TYPE_WORDPRESS</option>
-					<option value="cp">COM_COMPATIBILITY_CONFIG_TYPE_CLASSICPRESS</option>
-				</field>
+            <form>
+                <field
+                        type="list"
+                        name="type"
+                        label="COM_COMPATIBILITY_CONFIG_TYPE_LABEL"
+                        description="COM_COMPATIBILITY_CONFIG_TYPE_DESC"
+                        default="joomla">
+                    <option value="joomla">COM_COMPATIBILITY_CONFIG_TYPE_JOOMLA</option>
+                    <option value="wp">COM_COMPATIBILITY_CONFIG_TYPE_WORDPRESS</option>
+                    <option value="cp">COM_COMPATIBILITY_CONFIG_TYPE_CLASSICPRESS</option>
+                </field>
 
-				<field
-					type="text"
-					name="version"
-					label="COM_COMPATIBILITY_CONFIG_VERSION_LABEL"
-					description="COM_COMPATIBILITY_CONFIG_VERSION_DESC"
-					default=""
-				/>
+                <field
+                        type="text"
+                        name="version"
+                        label="COM_COMPATIBILITY_CONFIG_VERSION_LABEL"
+                        description="COM_COMPATIBILITY_CONFIG_VERSION_DESC"
+                        default=""
+                />
 
-				<field
-						type="text"
-						name="min"
-						label="COM_COMPATIBILITY_CONFIG_MIN_LABEL"
-						description="COM_COMPATIBILITY_CONFIG_MIN_DESC"
-						default=""
-				/>
+                <field
+                        type="text"
+                        name="min"
+                        label="COM_COMPATIBILITY_CONFIG_MIN_LABEL"
+                        description="COM_COMPATIBILITY_CONFIG_MIN_DESC"
+                        default=""
+                />
 
-				<field
-						type="text"
-						name="max"
-						label="COM_COMPATIBILITY_CONFIG_MAX_LABEL"
-						description="COM_COMPATIBILITY_CONFIG_MAX_DESC"
-						default=""
-				/>
-			</fieldset>
+                <field
+                        type="text"
+                        name="max"
+                        label="COM_COMPATIBILITY_CONFIG_MAX_LABEL"
+                        description="COM_COMPATIBILITY_CONFIG_MAX_DESC"
+                        default=""
+                />
+            </form>
         </field>
 
         <field
