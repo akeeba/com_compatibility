@@ -10,11 +10,11 @@
 	<creationDate>##DATE##</creationDate>
 	<author>Nicholas K. Dionysopoulos</author>
 	<authorEmail>nicholas@dionysopoulos.me</authorEmail>
-	<authorUrl>https://www.akeebabackup.com</authorUrl>
+	<authorUrl>https://www.akeeba.com</authorUrl>
 	<copyright>Copyright (c)2017-2019 Akeeba Ltd / Nicholas K. Dionysopoulos</copyright>
 	<license>GNU GPL v3 or later</license>
 	<version>##VERSION##</version>
-	<description>Compatibility page for AkeebaBackup.com</description>
+	<description>Compatibility page for Akeeba Ltd</description>
 
 	<!-- Public front end files -->
 	<files folder="frontend">

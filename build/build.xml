@@ -5,7 +5,7 @@
   ~ @license		GNU General Public License version 3 or later
   -->
 
-<project name="CompatibilityJoomla" description="Compatibility Information for AkeebaBackup.com" default="git" >
+<project name="CompatibilityJoomla" description="Compatibility Information for Akeeba Ltd" default="git" >
 
     <import file="${phing.dir}/../../buildfiles/phing/common.xml" />
 
