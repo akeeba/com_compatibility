@@ -8,38 +8,15 @@
 // Protect from unauthorized access
 defined('_JEXEC') or die();
 
-/** @var array $software */
+/**
+ * @var \Akeeba\Compatibility\Site\View\Compatibility\Html $this
+ * @var array $software
+ */
 
-$type          = $software['type'];
-$latestRelease = $software['latest'];
-$latestCms     = '';
-$latestCP      = '';
-$latestWP      = '';
-
-if ($software['type'] == 'WordPress')
-{
-	foreach ($software['matrix'] as $cms => $releases)
-	{
-		$type = strtoupper(substr($cms, 0, 2));
-
-		if ($type == 'CP')
-        {
-            $latestCP = $cms;
-        }
-		else
-        {
-	        $latestWP = $cms;
-        }
-	}
-}
-
-foreach ($software['matrix'] as $cms => $releases)
-{
-   $latestCms = $cms;
-}
-
-$title = $software['logo'] . ' ' . $software['title'];
-
+$type           = $software['type'];
+$latestRelease  = $software['latest'];
+$title          = $software['logo'] . ' ' . $software['title'];
+$latestVersions = $this->getCMSLabels(array_keys($software['matrix']), $software['type']);
 ?>
 
 <div class="akeeba-panel--information" id="{{ $software['slug'] }}-compatibility">
@@ -63,25 +40,24 @@ $title = $software['logo'] . ' ' . $software['title'];
             </thead>
             <tbody>
             @foreach ($software['matrix'] as $version => $releases)
+                <?php
+                    $cmsReleaseType = $latestVersions[rtrim($version, '+')];
+                    $cmsLabelColor = in_array($cmsReleaseType, ['beta', 'lts']) ? 'orange' : ($cmsReleaseType === 'latest' ? 'green' : 'grey');
+                    $cmsName = ($type === 'Joomla') ? 'Joomla' : (strtolower(substr($version, 0, 2)) == 'wp' ? 'WordPress' : 'ClassicPress');
+                    $displayVersion = ($type === 'Joomla') ? $version : substr($version, 2);
+                ?>
                 <tr>
                     <td>
-                            @if ($type == 'WP')
-                            <?php $latestCms = (substr($version, 0, 2) == 'CP') ? $latestCP : $latestWP ?>
-                            <span class="akeeba-label--{{ ($version == $latestCms) ? 'green' : 'grey' }}">
-                                {{ (substr($version, 0, 2) == 'CP') ? 'ClassicPress' : 'WordPress' }}
-                                {{ substr($version, 2) }}
-                            @else
-                            <span class="akeeba-label--{{ ($version == $latestCms) ? 'green' : 'grey' }}">
-                                {{ $type  }} {{ $version }}
-                            @endif
-                            </span>
+                        <span class="akeeba-label--{{ $cmsLabelColor }}">
+                            {{ $cmsName }} {{ $displayVersion }}
+                        </span>
                     </td>
                     @foreach ($releases as $phpVersion => $release)
                         <td>
                             @unless(empty($release))
                                 <a href="{{ $release['link'] }}">
                                     @if ($release['version'] == $latestRelease)
-                                        <span class="akeeba-label--{{ ($version == $latestCms) ? 'green' : 'grey' }}">
+                                        <span class="akeeba-label--{{ $cmsLabelColor }}">
                                         @endif
                                             {{ $release['version'] }}
                                             @if ($release['version'] == $latestRelease)
