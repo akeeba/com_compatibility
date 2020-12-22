@@ -45,6 +45,11 @@ $latestVersions = $this->getCMSLabels(array_keys($software['matrix']), $software
                     $cmsLabelColor = in_array($cmsReleaseType, ['beta', 'lts']) ? 'orange' : ($cmsReleaseType === 'latest' ? 'green' : 'grey');
                     $cmsName = ($type === 'Joomla') ? 'Joomla' : (strtolower(substr($version, 0, 2)) == 'wp' ? 'WordPress' : 'ClassicPress');
                     $displayVersion = ($type === 'Joomla') ? $version : substr($version, 2);
+                    $latestVersionLabelColor = $cmsLabelColor;
+                    // Standalone products get special treatment
+                    $cmsLabelColor = ($type === 'Standalone') ? 'teal' : $cmsLabelColor;
+                    $latestVersionLabelColor = ($type === 'Standalone') ? 'green' : $cmsLabelColor;
+                    $cmsName = ($type === 'Standalone') ? 'PHP' : $cmsName;
                 ?>
                 <tr>
                     <td>
@@ -57,7 +62,7 @@ $latestVersions = $this->getCMSLabels(array_keys($software['matrix']), $software
                             @unless(empty($release))
                                 <a href="{{ $release['link'] }}">
                                     @if ($release['version'] == $latestRelease)
-                                        <span class="akeeba-label--{{ $cmsLabelColor }}">
+                                        <span class="akeeba-label--{{ $latestVersionLabelColor }}">
                                         @endif
                                             {{ $release['version'] }}
                                             @if ($release['version'] == $latestRelease)
