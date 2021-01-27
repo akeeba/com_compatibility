@@ -13,7 +13,7 @@ use Joomla\CMS\Toolbar\ToolbarHelper as JToolbarHelper;
 
 defined('_JEXEC') or die();
 
-class Toolbar extends \FOF30\Toolbar\Toolbar
+class Toolbar extends \FOF40\Toolbar\Toolbar
 {
 	public function onControlPanelsShow()
 	{

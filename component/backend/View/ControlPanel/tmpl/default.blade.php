@@ -5,7 +5,7 @@
  * @license        GNU General Public License version 3 or later
  */
 
-/** @var \FOF30\View\DataView\Html $this */
+/** @var \FOF40\View\DataView\Html $this */
 
 // Protect from unauthorized access
 defined('_JEXEC') or die();

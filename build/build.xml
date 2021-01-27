@@ -25,6 +25,17 @@
 		<exclude name="script.compatibility.php" />
 	</fileset>
 
+	<fileset dir="${dirs.release}" id="package">
+		<include name="com_*.zip" />
+		<include name="mod_*.zip" />
+		<include name="plg_*.zip" />
+		<include name="lib_*.zip" />
+		<include name="file_fef*.zip" />
+		<include name="pkg_*.xml" />
+		<include name="*.txt" />
+		<include name="script.compatibility.php" />
+	</fileset>
+
 	<!--
 	====================================================================================================
 	Tasks - General
@@ -32,11 +43,7 @@
 	-->
 
 	<target name="all" description="Makes everything"
-		depends="git,documentation">
-	</target>
-
-	<target name="git" description="Makes only packages, not the documentation"
-		depends="new-release,setup-properties,package-com">
+		depends="git">
 	</target>
 
 	<!--
@@ -45,7 +52,8 @@
 	====================================================================================================
 	-->
 
-	<target name="documentation" description="Ignored">
+	<target name="documentation" description="The documentation">
+		<echo message="The documentation target is obsolete. The documentation is now in the wiki" />
 	</target>
 
 
@@ -56,6 +64,6 @@
 	-->
 
 	<target name="docsdeploy">
-		<echo>Ignored</echo>
+		<echo message="The docsdeploy target is obsolete. The documentation is now in the wiki" />
 	</target>
 </project>

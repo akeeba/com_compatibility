@@ -7,8 +7,8 @@
 
 namespace Akeeba\Compatibility\Admin\Dispatcher;
 
-use FOF30\Container\Container;
-use FOF30\Dispatcher\Dispatcher as FOFDispatcher;
+use FOF40\Container\Container;
+use FOF40\Dispatcher\Dispatcher as FOFDispatcher;
 
 // Protect from unauthorized access
 defined('_JEXEC') or die();
@@ -30,7 +30,7 @@ class Dispatcher extends FOFDispatcher
 
 		if (!$useFEF)
 		{
-			$this->container->rendererClass = '\\FOF30\\Render\\Joomla3';
+			$this->container->rendererClass = '\\FOF40\\Render\\Joomla3';
 		}
 
 		$darkMode = $this->container->params->get('dark_mode_backend', -1);

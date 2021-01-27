@@ -9,9 +9,9 @@ namespace Akeeba\Compatibility\Site\Model;
 
 use Akeeba\ReleaseSystem\Site\Model\Categories;
 use Akeeba\ReleaseSystem\Site\Model\Items;
-use FOF30\Container\Container;
-use FOF30\Model\DataModel\Exception\RecordNotLoaded;
-use FOF30\Model\Model;
+use FOF40\Container\Container;
+use FOF40\Model\DataModel\Exception\RecordNotLoaded;
+use FOF40\Model\Model;
 use Joomla\CMS\Router\Route;
 use Joomla\Utilities\ArrayHelper;
 
@@ -79,8 +79,32 @@ class Compatibility extends Model
 		}
 
 		// Try to load the category
+		$isComArsFOF3 = $this->isComArsFOF3();
+
+		if (is_null($isComArsFOF3))
+		{
+			return null;
+		}
+
+		if ($isComArsFOF3)
+		{
+			if (!defined('FOF30_INCLUDED') && !@include_once(JPATH_LIBRARIES . '/fof30/include.php'))
+			{
+				return null;
+			}
+
+			$arsContainer = \FOF30\Container\Container::getInstance('com_ars', [
+				'tempInstance' => true,
+			]);
+		}
+		else
+		{
+			$arsContainer = Container::getInstance('com_ars', [
+				'tempInstance' => true,
+			]);
+		}
+
 		/** @var Categories $category */
-		$arsContainer = Container::getInstance('com_ars');
 		$category     = $arsContainer->factory->model('Categories')->tmpInstance();
 
 		try
@@ -564,4 +588,29 @@ class Compatibility extends Model
 			return $temp;
 		}, $matrix);
 	}
+
+	/**
+	 * Is ARS still using FOF3?
+	 *
+	 * @return  bool|null  NULL if it's not installed, TRUE for FOF3, FALSE otherwise
+	 */
+	function isComArsFOF3(): ?bool
+	{
+		$path = JPATH_SITE . '/components/com_ars/Model/Categories.php';
+
+		if (!@file_exists($path))
+		{
+			return null;
+		}
+
+		$contents = @file_get_contents($path);
+
+		if ($contents === false)
+		{
+			return null;
+		}
+
+		return (strpos($contents, 'FOF30\Model\DataModel') !== false);
+	}
+
 }

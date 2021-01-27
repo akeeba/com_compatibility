@@ -8,7 +8,7 @@
 namespace Akeeba\Compatibility\Site\View\Compatibility;
 
 use Akeeba\Compatibility\Site\Model\Compatibility;
-use FOF30\View\DataView\Html as FOFHtml;
+use FOF40\View\DataView\Html as FOFHtml;
 
 // Protect from unauthorized access
 defined('_JEXEC') or die();

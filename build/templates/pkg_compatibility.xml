@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ @package		com_compatibility
+  ~ @copyright	Copyright (c)2017-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
+  ~ @license		GNU General Public License version 3 or later
+  -->
+
+<extension version="3.3.0" type="package" method="upgrade">
+    <name>Version Compatibility package</name>
+    <author>Nicholas K. Dionysopoulos</author>
+    <creationDate>##DATE##</creationDate>
+    <packagename>compatibility</packagename>
+    <version>##VERSION##</version>
+    <url>https://www.akeeba.com</url>
+    <packager>Akeeba Ltd</packager>
+    <packagerurl>https://www.akeeba.com</packagerurl>
+    <copyright>Copyright (c)2010-2020 Nicholas K. Dionysopoulos</copyright>
+    <license>GNU GPL v3 or later</license>
+    <description>Akeeba Release System installation package v.##VERSION##</description>
+
+    <!-- List of extensions to install -->
+    <files>
+        <!-- Component -->
+        <file type="component" id="com_compatibility">com_compatibility.zip</file>
+    </files>
+
+    <!-- Installation script -->
+    <scriptfile>script.compatibility.php</scriptfile>
+
+    <!-- Update servers -->
+    <!--
+    <updateservers>
+        <server type="extension" priority="1" name="Version Compatibility Updates">
+            https://raw.githubusercontent.com/akeeba/com_compatibility/master/update/pkg_compatibility.xml
+        </server>
+    </updateservers>
+    -->
+</extension>
