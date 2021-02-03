@@ -137,6 +137,7 @@
             buttons="false"
             label="COM_COMPATIBILITY_CONFIG_INTRO_TEXT_LABEL"
             description="COM_COMPATIBILITY_CONFIG_INTRO_TEXT_DESC"
+            filter="JComponentHelper::filterText"
             showon="show_intro:1"
         />
     </fieldset>
