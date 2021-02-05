@@ -10,6 +10,7 @@ namespace Akeeba\Compatibility\Admin\Controller;
 use FOF40\Container\Container;
 use FOF40\Controller\Controller;
 use FOF40\Controller\Mixin\PredefinedTaskList;
+use FOF40\Utils\ViewManifestMigration;
 use FOF40\View\Exception\AccessForbidden;
 use Joomla\CMS\Application\AdministratorApplication;
 use Joomla\CMS\Document\JsonDocument;
@@ -34,6 +35,9 @@ class ControlPanel extends Controller
 
 	public function show($cachable = false)
 	{
+		ViewManifestMigration::migrateJoomla4MenuXMLFiles($this->container);
+		ViewManifestMigration::removeJoomla3LegacyViews($this->container);
+
 		$this->display(true);
 	}
 

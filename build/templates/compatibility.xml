@@ -21,8 +21,8 @@
 		<folder>Controller</folder>
 		<folder>Dispatcher</folder>
 		<folder>Model</folder>
+		<folder>tmpl</folder>
 		<folder>View</folder>
-		<folder>views</folder>
 		<filename>compatibility.php</filename>
 	</files>
 
@@ -50,6 +50,7 @@
 			<folder>Dispatcher</folder>
 			<folder>Model</folder>
 			<folder>Toolbar</folder>
+			<folder>tmpl</folder>
 			<folder>View</folder>
 
 			<filename>compatibility.php</filename>

@@ -72,7 +72,10 @@ class Com_compatibilityInstallerScript extends \FOF40\InstallScript\Component
 	 */
 	protected $removeFilesAllVersions = [
 		'files'   => [],
-		'folders' => [],
+		'folders' => [
+			'administrator/components/com_compatibility/Views/ControlPanel/tmpl',
+			'components/com_compatibility/Views/Compatibility/tmpl',
+		],
 	];
 
 	public function uninstall(ComponentAdapter $parent): void

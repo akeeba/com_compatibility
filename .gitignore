@@ -51,6 +51,8 @@ fabric.properties
 component/compatibility.xml
 component/backend/PrecompiledTemplates
 component/frontend/PrecompiledTemplates
+component/backend/views
+component/frontend/views
 
 # Release files
 release/**
