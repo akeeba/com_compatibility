@@ -5,7 +5,7 @@
   ~ @license		GNU General Public License version 3 or later
   -->
 
-<config>
+<config addfieldpath="/administrator/components/com_ats/fields">
     <fieldset
             name="software"
             label="COM_COMPATIBILITY_CONFIG_SOFTWARE_LABEL"
@@ -63,7 +63,7 @@
                 layout="joomla.form.field.subform.repeatable-table"
                 groupByFieldset="false"
         >
-            <form>
+            <form addfieldpath="/administrator/components/com_ats/fields">
                 <field
                         type="list"
                         name="type"
@@ -115,29 +115,29 @@
     </fieldset>
 
     <fieldset
-        name="intro"
-        label="COM_COMPATIBILITY_CONFIG_INTRO_LABEL"
-        description="COM_COMPATIBILITY_CONFIG_INTRO_DESC"
+            name="intro"
+            label="COM_COMPATIBILITY_CONFIG_INTRO_LABEL"
+            description="COM_COMPATIBILITY_CONFIG_INTRO_DESC"
     >
         <field
-            type="radio"
-            name="show_intro"
-            label="COM_COMPATIBILITY_CONFIG_SHOW_INTRO_LABEL"
-            description="COM_COMPATIBILITY_CONFIG_SHOW_INTRO_DESC"
-            default="1"
-            class="btn-group btn-yesno"
+                type="fancyradio"
+                name="show_intro"
+                label="COM_COMPATIBILITY_CONFIG_SHOW_INTRO_LABEL"
+                description="COM_COMPATIBILITY_CONFIG_SHOW_INTRO_DESC"
+                default="1"
+                class="btn-group btn-yesno"
         >
             <option value="0">JNO</option>
             <option value="1">JYES</option>
         </field>
 
         <field
-            name="intro_text"
-            type="editor"
-            buttons="false"
-            label="COM_COMPATIBILITY_CONFIG_INTRO_TEXT_LABEL"
-            description="COM_COMPATIBILITY_CONFIG_INTRO_TEXT_DESC"
-            showon="show_intro:1"
+                name="intro_text"
+                type="editor"
+                buttons="false"
+                label="COM_COMPATIBILITY_CONFIG_INTRO_TEXT_LABEL"
+                description="COM_COMPATIBILITY_CONFIG_INTRO_TEXT_DESC"
+                showon="show_intro:1"
         />
     </fieldset>
 
@@ -146,7 +146,9 @@
             label="COM_COMPATIBILITY_CONFIG_DISPLAY_LABEL"
             description="COM_COMPATIBILITY_CONFIG_DISPLAY_DESC"
     >
-        <field name="load_fef" type="list" default="3"
+        <field name="load_fef"
+               type="list"
+               default="3"
                label="COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF"
                description="COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_DESC">
             <option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_NEVER</option>
@@ -155,7 +157,9 @@
             <option value="3">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BOTH</option>
         </field>
 
-        <field name="fef_reset" type="list" default="3"
+        <field name="fef_reset"
+               type="list"
+               default="3"
                label="COM_COMPATIBILITY_CONFIG_BACKEND_FEF_RESET"
                description="COM_COMPATIBILITY_CONFIG_BACKEND_FEF_RESET_DESC">
             <option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_NEVER</option>
@@ -164,19 +168,23 @@
             <option value="3">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BOTH</option>
         </field>
 
-        <field name="dark_mode_backend" type="radio" default="-1"
+        <field name="dark_mode_backend"
+               type="list"
+               default="-1"
                label="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_BACKEND_LABEL"
                description="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_BACKEND_DESC"
-               class="switcher btn-group">
+        >
             <option value="-1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_AUTO</option>
             <option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_NEVER</option>
             <option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_ALWAYS</option>
         </field>
 
-        <field name="dark_mode_frontend" type="radio" default="-1"
+        <field name="dark_mode_frontend"
+               type="fancyradio"
+               default="-1"
                label="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_FRONTEND_LABEL"
                description="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_FRONTEND_DESC"
-               class="switcher btn-group">
+        >
             <option value="-1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_AUTO</option>
             <option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_NEVER</option>
             <option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_ALWAYS</option>
