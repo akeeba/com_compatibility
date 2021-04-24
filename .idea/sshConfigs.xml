@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="OPEN_SSH" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="mcs001-011.directrouter.com" id="1bf06fbe-0e13-4487-8e68-ee2917959f20" port="22" customName="ABCOM live" nameFormat="CUSTOM" username="akeeba">
+        <option name="customName" value="ABCOM live" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>

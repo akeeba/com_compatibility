@@ -5,7 +5,7 @@
   ~ @license		GNU General Public License version 3 or later
   -->
 
-<config addfieldpath="/administrator/components/com_compatiblity/fields">
+<config addfieldprefix="Akeeba\Component\Compatibility\Administrator\Field">
     <fieldset
             name="software"
             label="COM_COMPATIBILITY_CONFIG_SOFTWARE_LABEL"
@@ -19,7 +19,7 @@
                 min="1"
                 multiple="true"
                 buttons="add,remove,move"
-                layout="joomla.form.field.subform.repeatable-table"
+                layout="joomla.form.field.subform.repeatable"
                 groupByFieldset="false"
         >
             <form>
@@ -27,7 +27,7 @@
                         name="category"
                         type="sql"
                         label="COM_COMPATIBILITY_CONFIG_CATEGORY_LABEL"
-                        description="COM_COMPATIBILITY_CONFIG_CATEGORY_DESC"
+                        _description="COM_COMPATIBILITY_CONFIG_CATEGORY_DESC"
                         default=""
                         query="SELECT `id`, `title` FROM `#__ars_categories` WHERE `type` = 'normal' ORDER BY `title` ASC"
                         key_field="id"
@@ -38,7 +38,7 @@
                         name="title"
                         type="text"
                         label="COM_COMPATIBILITY_CONFIG_TITLE_LABEL"
-                        description="COM_COMPATIBILITY_CONFIG_TITLE_DESC"
+                        _description="COM_COMPATIBILITY_CONFIG_TITLE_DESC"
                         default=""
                 />
 
@@ -46,7 +46,7 @@
                         name="icon"
                         type="text"
                         label="COM_COMPATIBILITY_CONFIG_ICON_LABEL"
-                        description="COM_COMPATIBILITY_CONFIG_ICON_DESC"
+                        _description="COM_COMPATIBILITY_CONFIG_ICON_DESC"
                         default="aklogo-company-logo"
                 />
             </form>
@@ -60,7 +60,7 @@
                 min="1"
                 multiple="true"
                 buttons="add,remove,move"
-                layout="joomla.form.field.subform.repeatable-table"
+                layout="joomla.form.field.subform.repeatable"
                 groupByFieldset="false"
         >
             <form addfieldpath="/administrator/components/com_compatiblity/fields">
@@ -68,7 +68,7 @@
                         type="list"
                         name="type"
                         label="COM_COMPATIBILITY_CONFIG_TYPE_LABEL"
-                        description="COM_COMPATIBILITY_CONFIG_TYPE_DESC"
+                        _description="COM_COMPATIBILITY_CONFIG_TYPE_DESC"
                         default="joomla">
                     <option value="joomla">COM_COMPATIBILITY_CONFIG_TYPE_JOOMLA</option>
                     <option value="wp">COM_COMPATIBILITY_CONFIG_TYPE_WORDPRESS</option>
@@ -79,7 +79,7 @@
                         type="text"
                         name="version"
                         label="COM_COMPATIBILITY_CONFIG_VERSION_LABEL"
-                        description="COM_COMPATIBILITY_CONFIG_VERSION_DESC"
+                        _description="COM_COMPATIBILITY_CONFIG_VERSION_DESC"
                         default=""
                 />
 
@@ -87,7 +87,7 @@
                         type="text"
                         name="min"
                         label="COM_COMPATIBILITY_CONFIG_MIN_LABEL"
-                        description="COM_COMPATIBILITY_CONFIG_MIN_DESC"
+                        _description="COM_COMPATIBILITY_CONFIG_MIN_DESC"
                         default=""
                 />
 
@@ -95,7 +95,7 @@
                         type="text"
                         name="max"
                         label="COM_COMPATIBILITY_CONFIG_MAX_LABEL"
-                        description="COM_COMPATIBILITY_CONFIG_MAX_DESC"
+                        _description="COM_COMPATIBILITY_CONFIG_MAX_DESC"
                         default=""
                 />
             </form>
@@ -107,7 +107,10 @@
                 label="COM_COMPATIBILITY_CONFIG_EXCLUDE_PHP_LABEL"
                 description="COM_COMPATIBILITY_CONFIG_EXCLUDE_PHP_DESC"
                 default=""
-                query="SELECT `id`, `title` FROM `#__ars_environments` WHERE `xmltitle` LIKE 'php/%'"
+                layout="joomla.form.field.list-fancy-select"
+                sql_select="id, title"
+                sql_from="#__ars_environments"
+                sql_where="xmltitle LIKE 'php/%'"
                 key_field="id"
                 value_field="title"
                 multiple="multiple"
@@ -120,7 +123,8 @@
             description="COM_COMPATIBILITY_CONFIG_INTRO_DESC"
     >
         <field
-                type="fancyradio"
+                type="list"
+                layout="joomla.form.field.radio.switcher"
                 name="show_intro"
                 label="COM_COMPATIBILITY_CONFIG_SHOW_INTRO_LABEL"
                 description="COM_COMPATIBILITY_CONFIG_SHOW_INTRO_DESC"
@@ -139,56 +143,6 @@
                 description="COM_COMPATIBILITY_CONFIG_INTRO_TEXT_DESC"
                 showon="show_intro:1"
         />
-    </fieldset>
-
-    <fieldset
-            name="display"
-            label="COM_COMPATIBILITY_CONFIG_DISPLAY_LABEL"
-            description="COM_COMPATIBILITY_CONFIG_DISPLAY_DESC"
-    >
-        <field name="load_fef"
-               type="list"
-               default="3"
-               label="COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF"
-               description="COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_DESC">
-            <option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_NEVER</option>
-            <option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_FRONTEND</option>
-            <option value="2">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BACKEND</option>
-            <option value="3">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BOTH</option>
-        </field>
-
-        <field name="fef_reset"
-               type="list"
-               default="3"
-               label="COM_COMPATIBILITY_CONFIG_BACKEND_FEF_RESET"
-               description="COM_COMPATIBILITY_CONFIG_BACKEND_FEF_RESET_DESC">
-            <option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_NEVER</option>
-            <option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_FRONTEND</option>
-            <option value="2">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BACKEND</option>
-            <option value="3">COM_COMPATIBILITY_CONFIG_BACKEND_LOAD_FEF_BOTH</option>
-        </field>
-
-        <field name="dark_mode_backend"
-               type="list"
-               default="-1"
-               label="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_BACKEND_LABEL"
-               description="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_BACKEND_DESC"
-        >
-            <option value="-1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_AUTO</option>
-            <option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_NEVER</option>
-            <option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_ALWAYS</option>
-        </field>
-
-        <field name="dark_mode_frontend"
-               type="fancyradio"
-               default="-1"
-               label="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_FRONTEND_LABEL"
-               description="COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_FRONTEND_DESC"
-        >
-            <option value="-1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_AUTO</option>
-            <option value="0">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_NEVER</option>
-            <option value="1">COM_COMPATIBILITY_CONFIG_BACKEND_DARKMODE_ALWAYS</option>
-        </field>
     </fieldset>
 
     <fieldset

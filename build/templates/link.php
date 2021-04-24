@@ -1,16 +1,16 @@
 <?php
 /**
- * @package		com_compatibility
- * @copyright	Copyright (c)2017-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
- * @license		GNU General Public License version 3 or later
+ * @package        com_compatibility
+ * @copyright      Copyright (c)2017-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
+ * @license        GNU General Public License version 3 or later
  */
 
 // Internal linking script
-$hardlink_files = array(
-);
+$hardlink_files = [
+];
 
-$symlink_files = array(
-);
+$symlink_files = [
+];
 
-$symlink_folders = array(
-);
+$symlink_folders = [
+];

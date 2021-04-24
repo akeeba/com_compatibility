@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="7db977bd-fffa-44cb-a747-69cc9b8ca634" name="ABCOM live" url="https://www.akeeba.com">
+        <fileTransfer rootFolder="/home/akeeba/public_html" accessType="SFTP" host="mcs001-011.directrouter.com" port="22" sshConfigId="1bf06fbe-0e13-4487-8e68-ee2917959f20" sshConfig="ABCOM live" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

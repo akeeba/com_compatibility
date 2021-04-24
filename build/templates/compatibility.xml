@@ -1,73 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ @package		com_compatibility
+  ~ @package	com_compatibility
   ~ @copyright	Copyright (c)2017-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
-  ~ @license		GNU General Public License version 3 or later
+  ~ @license	GNU General Public License version 3 or later
   -->
 
-<extension version="3.6.0" type="component" method="upgrade">
-	<name>Compatibility</name>
-	<creationDate>##DATE##</creationDate>
-	<author>Nicholas K. Dionysopoulos</author>
-	<authorEmail>nicholas@dionysopoulos.me</authorEmail>
-	<authorUrl>https://www.akeeba.com</authorUrl>
-	<copyright>Copyright (c)2017-2021 Akeeba Ltd / Nicholas K. Dionysopoulos</copyright>
-	<license>GNU GPL v3 or later</license>
-	<version>##VERSION##</version>
-	<description>Compatibility page for Akeeba Ltd</description>
+<extension version="4.0.0" type="component" method="upgrade">
+    <name>Compatibility</name>
+    <creationDate>##DATE##</creationDate>
+    <author>Nicholas K. Dionysopoulos</author>
+    <authorEmail>nicholas@akeeba.com</authorEmail>
+    <authorUrl>https://www.akeeba.com</authorUrl>
+    <copyright>Copyright (c)2017-2021 Nicholas K. Dionysopoulos / Akeeba Ltd</copyright>
+    <license>GNU GPL v3 or later</license>
+    <version>##VERSION##</version>
+    <description>Compatibility page for Akeeba Ltd</description>
+    <namespace path="src">Akeeba\Component\Compatibility</namespace>
 
-	<!-- Public front end files -->
-	<files folder="frontend">
-		<folder>Controller</folder>
-		<folder>Dispatcher</folder>
-		<folder>Model</folder>
-		<folder>tmpl</folder>
-		<folder>View</folder>
-		<filename>compatibility.php</filename>
-	</files>
+    <!-- Public front end files -->
+    <files folder="frontend">
+        <folder>forms</folder>
+        <folder>language</folder>
+        <folder>src</folder>
+        <folder>tmpl</folder>
 
-	<!-- Front end translation files -->
-	<languages folder="language/frontend">
-		<language tag="en-GB">en-GB/en-GB.com_compatibility.ini</language>
-	</languages>
+        <filename>.htaccess</filename>
+        <filename>web.config</filename>
+    </files>
 
-	<!-- Media files -->
-	<!--
-	<media destination="com_compatibility" folder="media">
-		<folder>TODO</folder>
-		<filename>TODO</filename>
-	</media>
-	-->
+    <!-- Front end translation files -->
+    <languages folder="frontend/language">
+        <language tag="en-GB">en-GB/com_compatibility.ini</language>
+    </languages>
 
-	<!-- Administrator back-end section -->
-	<administration>
-		<!-- Administration menu -->
-		<menu view="ControlPanel">COM_COMPATIBILITY</menu>
+    <!-- Administrator back-end section -->
+    <administration>
+        <!-- Administration menu -->
+        <menu view="main">COM_COMPATIBILITY</menu>
 
-		<!-- Back-end files -->
-		<files folder="backend">
-			<folder>Controller</folder>
-			<folder>Dispatcher</folder>
-			<folder>fields</folder>
-			<folder>Model</folder>
-			<folder>Toolbar</folder>
-			<folder>tmpl</folder>
-			<folder>View</folder>
+        <!-- Back-end files -->
+        <files folder="backend">
+            <folder>language</folder>
+            <folder>services</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
 
-			<filename>compatibility.php</filename>
-			<filename>fof.xml</filename>
-			<filename>config.xml</filename>
-			<filename>access.xml</filename>
-		</files>
+            <filename>.htaccess</filename>
+            <filename>config.xml</filename>
+            <filename>access.xml</filename>
+            <filename>web.config</filename>
+        </files>
 
-		<!-- Back-end translation files -->
-		<languages folder="language/backend">
-			<language tag="en-GB">en-GB/en-GB.com_compatibility.ini</language>
-			<language tag="en-GB">en-GB/en-GB.com_compatibility.sys.ini</language>
-		</languages>
+        <!-- Back-end translation files -->
+        <languages folder="backend/language">
+            <language tag="en-GB">en-GB/com_compatibility.ini</language>
+            <language tag="en-GB">en-GB/com_compatibility.sys.ini</language>
+        </languages>
 
-	</administration>
+    </administration>
 
-	<!-- Installation / uninstallation script file -->
-	<scriptfile>script.com_compatibility.php</scriptfile>
+    <!-- Installation / uninstallation script file -->
+    <scriptfile>script.com_compatibility.php</scriptfile>
 </extension>

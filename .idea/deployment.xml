@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="ABCOM live">
+    <serverData>
+      <paths name="ABCOM live">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/administrator/components/com_compatibility" local="$PROJECT_DIR$/component/backend" web="/administrator/components/com_compatibility" />
+            <mapping deploy="/components/com_compatibility" local="$PROJECT_DIR$/component/frontend" web="/components/com_compatibility" />
+            <mapping deploy="/administrator/language/en-GB" local="$PROJECT_DIR$/component/language/backend/en-GB" web="/administrator/language/en-GB" />
+            <mapping deploy="/language/en-GB" local="$PROJECT_DIR$/component/language/frontend/en-GB" web="/language/en-GB" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
