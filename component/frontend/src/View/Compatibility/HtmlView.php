@@ -1,19 +1,19 @@
 <?php
 /**
- * @package		com_compatibility
- * @copyright	Copyright (c)2017-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
- * @license		GNU General Public License version 3 or later
+ * @package        com_compatibility
+ * @copyright      Copyright (c)2017-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
+ * @license        GNU General Public License version 3 or later
  */
 
-namespace Akeeba\Compatibility\Site\View\Compatibility;
+namespace Akeeba\Component\Compatibility\Site\View\Compatibility;
 
-use Akeeba\Compatibility\Site\Model\Compatibility;
-use FOF40\View\DataView\Html as FOFHtml;
+defined('_JEXEC') || die;
 
-// Protect from unauthorized access
-defined('_JEXEC') or die();
+use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 
-class Html extends FOFHtml
+class HtmlView extends BaseHtmlView
 {
 	/**
 	 * The data to push to the frontend of the site
@@ -23,14 +23,16 @@ class Html extends FOFHtml
 	 */
 	public $data = [];
 
-	/** @inheritDoc */
-	protected function onBeforeBrowse()
+	public function display($tpl = null)
 	{
-		/** @var Compatibility $model */
-		$model = $this->getModel();
+		$this->data = $this->get('DisplayData');
 
-		// Get the version information per configured software
-		$this->data = $model->getDisplayData();
+		HTMLHelper::_('stylesheet', 'com_compatibility/frontend.css', [
+			'relative' => true,
+			'version'  => ApplicationHelper::getHash(@filemtime(__FILE__)),
+		]);
+
+		parent::display($tpl);
 	}
 
 	protected function getCMSLabels(array $cmsVersions, string $softwareType = 'Joomla'): array

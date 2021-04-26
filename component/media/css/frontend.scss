@@ -1,0 +1,109 @@
+/*!
+ * @package		com_compatibility
+ * @copyright	Copyright (c)2017-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
+ * @license		GNU General Public License version 3 or later
+ */
+
+$grey: #514F50;
+$teal: #40B5B8;
+$red: #E2363C;
+$light-grey: #EFEFEF;
+$white: #ffffff;
+$green: #93C34E;
+$orange: #F0AD4E;
+$black: #000000;
+
+@font-face {
+  font-family: 'Akeeba Products';
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/Akeeba-Products.woff");
+  font-display: swap;
+}
+
+[class*='aklogo-'] {
+  //noinspection CssNoGenericFontName
+  &:before{
+    display: inline-block;
+    font-family: 'Akeeba Products';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  &.sm:before {
+    font-size: 36px;
+  }
+
+  &.md:before {
+    font-size: 64px;
+  }
+
+  &.lg:before {
+    font-size: 112px;
+  }
+
+  &.red:before,
+  &.joomla:before {
+    color: $red;
+    background: transparent;
+  }
+
+  &.teal:before,
+  &.wp:before {
+    color: $teal;
+    background: transparent;
+  }
+
+  &.white:before {
+    color: $white;
+    background: transparent;
+  }
+
+  &.grey:before,
+  &.sa:before {
+    color: $grey;
+    background: transparent;
+  }
+}
+
+
+// product logos
+.aklogo-company-logo:before     {content:'\0065';}
+.aklogo-admintools-j:before     {content:'\0041';}
+.aklogo-admintools-j-small:before,
+.sm.aklogo-admintools-j:before  {content:'\0061';}
+
+.aklogo-admintools-wp:before    {content:'\0056';}
+.aklogo-admintools-wp-small:before,
+.sm.aklogo-admintools-wp:before {content:'\0076';}
+
+.aklogo-backup-j:before         {content:'\0042';}
+.aklogo-backup-wp:before        {content:'\0057';}
+.aklogo-solo:before             {content:'\0073';}
+
+.aklogo-kickstart:before        {content:'\006b';}
+
+.aklogo-essentials-j:before     {content:'\0047';}
+.aklogo-essentials-wp:before    {content:'\0048';}
+
+.aklogo-deluxe-j:before         {content:'\0046';}
+
+.aklogo-login-guard:before      {content:'\004c';}
+.aklogo-social-login:before     {content:'\006c';}
+
+.aklogo-subscriptions:before    {content:'\0053';}
+.aklogo-arccli:before           {content:'\0043';}
+.aklogo-docimport:before        {content:'\0044';}
+.aklogo-extract-wizard:before   {content:'\0045';}
+.aklogo-tickets:before          {content:'\0054';}
+.aklogo-unite:before            {content:'\0055';}
+.aklogo-fof:before              {content:'\0066';}
+.aklogo-release-system:before   {content:'\0052';}
+.aklogo-strapper:before         {content:'\006d';}
+
+.aklogo-engage:before           {content:'\0049';}
+.aklogo-replace:before          {content:'\0072';}

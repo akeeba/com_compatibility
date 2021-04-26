@@ -1,6 +1,9 @@
 ### Joomla! component
 # Generated XML Manifest
-component/compatibility.xml
+component/backend/compatibility.xml
+
+# NPS build-time dependencies
+/node_modules/
 
 # Release files
 release/**

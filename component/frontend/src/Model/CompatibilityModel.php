@@ -1,24 +1,23 @@
 <?php
 /**
- * @package		com_compatibility
- * @copyright	Copyright (c)2017-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
- * @license		GNU General Public License version 3 or later
+ * @package        com_compatibility
+ * @copyright      Copyright (c)2017-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
+ * @license        GNU General Public License version 3 or later
  */
 
-namespace Akeeba\Compatibility\Site\Model;
+namespace Akeeba\Component\Compatibility\Site\Model;
 
-use Akeeba\ReleaseSystem\Site\Model\Categories;
-use Akeeba\ReleaseSystem\Site\Model\Items;
-use FOF40\Container\Container;
-use FOF40\Model\DataModel\Exception\RecordNotLoaded;
-use FOF40\Model\Model;
+defined('_JEXEC') || die;
+
+use Exception;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Router\Route;
 use Joomla\Utilities\ArrayHelper;
+use stdClass;
 
-// Protect from unauthorized access
-defined('_JEXEC') or die();
-
-class Compatibility extends Model
+class CompatibilityModel extends BaseDatabaseModel
 {
 	/**
 	 * CMS and PHP compatibility rules
@@ -26,6 +25,21 @@ class Compatibility extends Model
 	 * @var array|null
 	 */
 	private $cmsRules = null;
+
+	/**
+	 * ARS categories (id => object)
+	 *
+	 * @var object[]
+	 */
+	private $arsCategories;
+
+	public function __construct($config = [], MVCFactoryInterface $factory = null)
+	{
+		parent::__construct($config, $factory);
+
+		$this->arsCategories = $this->getArsCategories();
+	}
+
 
 	/**
 	 * Returns the version information for the front-end
@@ -48,9 +62,10 @@ class Compatibility extends Model
 	 */
 	protected function getConfiguredSoftware(): array
 	{
-		$nullObject = new \stdClass();
+		$nullObject = new stdClass();
 
-		$extensions = $this->container->params->get('extensions', $nullObject);
+		$cParams    = ComponentHelper::getParams('com_compatibility');
+		$extensions = $cParams->get('extensions', $nullObject);
 
 		return array_map(function (array $software) {
 			$software = (object) $software;
@@ -78,46 +93,14 @@ class Compatibility extends Model
 			return null;
 		}
 
-		// Try to load the category
-		$isComArsFOF3 = $this->isComArsFOF3();
-
-		if (is_null($isComArsFOF3))
-		{
-			return null;
-		}
-
-		if ($isComArsFOF3)
-		{
-			if (!defined('FOF30_INCLUDED') && !@include_once(JPATH_LIBRARIES . '/fof30/include.php'))
-			{
-				return null;
-			}
-
-			$arsContainer = \FOF30\Container\Container::getInstance('com_ars', [
-				'tempInstance' => true,
-			]);
-		}
-		else
-		{
-			$arsContainer = Container::getInstance('com_ars', [
-				'tempInstance' => true,
-			]);
-		}
-
-		/** @var Categories $category */
-		$category     = $arsContainer->factory->model('Categories')->tmpInstance();
-
-		try
-		{
-			$category = $category->findOrFail($item->catid);
-		}
-		catch (RecordNotLoaded $e)
-		{
-			return null;
-		}
+		$category = $this->arsCategories[$category_id] ?? (object) [
+				'id'    => $category_id,
+				'title' => '',
+				'alias' => '',
+			];
 
 		// Get all item entries ordered by ordering ascending (newest release first)
-		$db      = $this->container->db;
+		$db      = $this->getDbo();
 		$query   = $db->getQuery(true)
 			->select([
 				$db->qn('r.id'),
@@ -199,8 +182,8 @@ class Compatibility extends Model
 		}
 
 		// Order all versions ascending
-		$cmsVersions = $this->orderVersions($cmsVersions);
-		$phpVersions = $this->orderVersions($phpVersions);
+		uksort($cmsVersions, 'version_compare');
+		uksort($phpVersions, 'version_compare');
 
 		// Prepare the matrix
 		$matrix = [];
@@ -285,30 +268,30 @@ class Compatibility extends Model
 	 *
 	 * @return  array
 	 */
-	protected function getPHPVersions()
+	protected function getPHPVersions(): array
 	{
 		static $versions = null;
 
-		if (is_null($versions))
+		$cParams = ComponentHelper::getParams('com_compatibility');
+
+		if (!is_null($versions))
 		{
-			$prefix   = 'php/';
-			$versions = $this->loadVersionsFromEnvironment($prefix);
+			return $versions;
+		}
 
-			$excluded = $this->container->params->get('exclude_php');
+		$prefix   = 'php/';
+		$rawVersions = $this->loadVersionsFromEnvironment($prefix);
+		$excluded = $cParams->get('exclude_php', []) ?: [];
+		$versions = [];
 
-			$temp = [];
-
-			foreach ($versions as $v => $id)
+		foreach ($rawVersions as $v => $id)
+		{
+			if (in_array($id, $excluded))
 			{
-				if (in_array($id, $excluded))
-				{
-					continue;
-				}
-
-				$temp[$v] = $id;
+				continue;
 			}
 
-			$versions = $temp;
+			$versions[$v] = $id;
 		}
 
 		return $versions;
@@ -319,15 +302,17 @@ class Compatibility extends Model
 	 *
 	 * @return  array
 	 */
-	protected function getJoomlaVersions()
+	protected function getJoomlaVersions(): array
 	{
 		static $versions = null;
 
-		if (is_null($versions))
+		if (!is_null($versions))
 		{
-			$prefix   = 'joomla/';
-			$versions = $this->loadVersionsFromEnvironment($prefix);
+			return $versions;
 		}
+
+		$prefix   = 'joomla/';
+		$versions = $this->loadVersionsFromEnvironment($prefix);
 
 		return $versions;
 	}
@@ -337,54 +322,33 @@ class Compatibility extends Model
 	 *
 	 * @return  array
 	 */
-	protected function getWordPressVersions()
+	protected function getWordPressVersions(): array
 	{
 		static $versions = null;
 
-		if (is_null($versions))
+		if (!is_null($versions))
 		{
-			$versions = [];
+			return $versions;
+		}
 
-			$prefix = 'classicpress/';
-			$temp   = $this->loadVersionsFromEnvironment($prefix);
+		$versions = [];
+		$prefix = 'classicpress/';
+		$temp   = $this->loadVersionsFromEnvironment($prefix);
 
-			foreach ($temp as $k => $v)
-			{
-				$versions['CP' . $k] = $v;
-			}
+		foreach ($temp as $k => $v)
+		{
+			$versions['CP' . $k] = $v;
+		}
 
-			$prefix = 'wordpress/';
-			$temp   = $this->loadVersionsFromEnvironment($prefix);
+		$prefix = 'wordpress/';
+		$temp   = $this->loadVersionsFromEnvironment($prefix);
 
-			foreach ($temp as $k => $v)
-			{
-				$versions['WP' . $k] = $v;
-			}
+		foreach ($temp as $k => $v)
+		{
+			$versions['WP' . $k] = $v;
 		}
 
 		return $versions;
-	}
-
-	/**
-	 * Order a version to environment ID map by version ascending
-	 *
-	 * @param   array  $versions  The version to environment ID map to sort
-	 *
-	 * @return  array  The sorted map
-	 */
-	protected function orderVersions($versions)
-	{
-		$keys = array_keys($versions);
-		usort($keys, 'version_compare');
-
-		$temp = [];
-
-		foreach ($keys as $k)
-		{
-			$temp[$k] = $versions[$k];
-		}
-
-		return $temp;
 	}
 
 	/**
@@ -394,11 +358,11 @@ class Compatibility extends Model
 	 *
 	 * @return  array  An associative array version => environment ID
 	 */
-	protected function loadVersionsFromEnvironment($prefix): array
+	protected function loadVersionsFromEnvironment(string $prefix): array
 	{
 		$allVersions = [];
 
-		$db    = $this->container->db;
+		$db    = $this->getDbo();
 		$query = $db->getQuery(true)
 			->select([
 				$db->qn('id'),
@@ -515,8 +479,8 @@ class Compatibility extends Model
 			'wp'     => [],
 		];
 
-		$nullObject = new \stdClass();
-		$cmsRules   = $this->container->params->get('cms', $nullObject);
+		$nullObject = new stdClass();
+		$cmsRules   = ComponentHelper::getParams('com_compatibility')->get('cms', $nullObject);
 		$cmsRules   = array_map(function (array $rule) {
 			$rule = (object) $rule;
 
@@ -589,28 +553,23 @@ class Compatibility extends Model
 		}, $matrix);
 	}
 
-	/**
-	 * Is ARS still using FOF3?
-	 *
-	 * @return  bool|null  NULL if it's not installed, TRUE for FOF3, FALSE otherwise
-	 */
-	function isComArsFOF3(): ?bool
+	private function getArsCategories(): array
 	{
-		$path = JPATH_SITE . '/components/com_ars/Model/Categories.php';
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true)
+			->select([
+				$db->quoteName('id'),
+				$db->quoteName('title'),
+				$db->quoteName('alias'),
+			])->from($db->quoteName('#__ars_categories'));
 
-		if (!@file_exists($path))
+		try
 		{
-			return null;
+			return $db->setQuery($query)->loadObjectList('id') ?? [];
 		}
-
-		$contents = @file_get_contents($path);
-
-		if ($contents === false)
+		catch (Exception $e)
 		{
-			return null;
+			return [];
 		}
-
-		return (strpos($contents, 'FOF30\Model\DataModel') !== false);
 	}
-
 }

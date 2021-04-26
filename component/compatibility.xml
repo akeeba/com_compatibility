@@ -7,13 +7,13 @@
 
 <extension version="4.0.0" type="component" method="upgrade">
     <name>Compatibility</name>
-    <creationDate>##DATE##</creationDate>
+    <creationDate>2021-04-26</creationDate>
     <author>Nicholas K. Dionysopoulos</author>
     <authorEmail>nicholas@akeeba.com</authorEmail>
     <authorUrl>https://www.akeeba.com</authorUrl>
     <copyright>Copyright (c)2017-2021 Nicholas K. Dionysopoulos / Akeeba Ltd</copyright>
     <license>GNU GPL v3 or later</license>
-    <version>##VERSION##</version>
+    <version>revACCB633</version>
     <description>Compatibility page for Akeeba Ltd</description>
     <namespace path="src">Akeeba\Component\Compatibility</namespace>
 
@@ -32,6 +32,12 @@
     <languages folder="frontend/language">
         <language tag="en-GB">en-GB/com_compatibility.ini</language>
     </languages>
+
+    <!-- Media files -->
+    <media destination="com_compatibility" folder="media">
+        <folder>css</folder>
+        <folder>fonts</folder>
+    </media>
 
     <!-- Administrator back-end section -->
     <administration>

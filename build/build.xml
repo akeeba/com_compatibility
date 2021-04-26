@@ -22,8 +22,7 @@
 		<include name="media/**" />
 		<include name="*" />
 
-		<exclude name="backend/views/**" />
-		<exclude name="frontend/views/**" />
+		<exclude name="backend/compatibility.xml" />
 
 		<exclude name="script.compatibility.php" />
 	</fileset>
