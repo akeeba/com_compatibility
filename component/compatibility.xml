@@ -19,7 +19,6 @@
 
     <!-- Public front end files -->
     <files folder="frontend">
-        <folder>forms</folder>
         <folder>language</folder>
         <folder>src</folder>
         <folder>tmpl</folder>
@@ -52,8 +51,8 @@
             <folder>tmpl</folder>
 
             <filename>.htaccess</filename>
-            <filename>config.xml</filename>
             <filename>access.xml</filename>
+            <filename>config.xml</filename>
             <filename>web.config</filename>
         </files>
 
