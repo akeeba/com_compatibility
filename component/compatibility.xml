@@ -6,7 +6,7 @@
   -->
 
 <extension version="4.0.0" type="component" method="upgrade">
-    <name>Compatibility</name>
+    <name>com_compatibility</name>
     <creationDate>2021-04-26</creationDate>
     <author>Nicholas K. Dionysopoulos</author>
     <authorEmail>nicholas@akeeba.com</authorEmail>
